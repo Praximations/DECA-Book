@@ -6,6 +6,7 @@ The written entry is built from code: every page is an HTML file and every color
 |---|---|
 | `dist/Blis-Farms-DECA-Book.pdf` | The final entry: 8.5 × 11 in pages, vector text, embedded fonts, under 50 MB |
 | `dist/Blis-Farms-DECA-Book.pptx` | An editable copy for Canva or PowerPoint, one 8.5 × 11 slide per page. Text boxes, shapes and photos stay native objects; charts come in as sharp, high-resolution images |
+| `dist/Blis-Farms-DECA-Book-Canva-Kit.zip` | The PowerPoint plus every photo, the logo, the fonts and a reference image of each page, with import steps |
 | `dist/preview/*.png` | Quick page images for review |
 
 ## Commands
@@ -15,6 +16,7 @@ npm install          # once
 npm run all          # build, then PDF, then PPTX, then previews, then the penalty check
 npm run pdf          # PDF only
 npm run pptx         # PowerPoint only
+npm run canva        # PowerPoint + Canva kit zip
 npm run preview      # PNG of every page (npm run preview -- 3 4 renders only sheets 3 and 4)
 npm run check        # penalty-point checklist + layout lint
 ```
@@ -56,10 +58,11 @@ docs/                     page plan, visual ideas
 
 ## Importing into Canva
 
-1. In Canva, choose **Create a design → Import file** and pick `dist/Blis-Farms-DECA-Book.pptx`.
-2. The fonts are EB Garamond, Google Sans and Caveat, the same as the new Blis website. PowerPoint only knows regular and bold, so medium-weight text (500) imports as regular. If Canva doesn't offer Google Sans, upload it from `node_modules/@fontsource/google-sans` or switch that text to a similar sans.
-3. The title page's photo and products come in as one flattened picture. Everything written on the page stays editable.
-4. Text boxes are slightly wider than their text, so Canva's font rendering doesn't add new line breaks. Small spacing differences are normal; tidy them in Canva.
-5. Charts arrive as images. To change a number, edit `src/charts/*.json` and export again.
+1. Unzip `dist/Blis-Farms-DECA-Book-Canva-Kit.zip`. In Canva, choose **Create a design → Import file** and pick the `.pptx` inside it.
+2. Fonts: EB Garamond, DM Sans and Caveat are all in Canva's font library. If one shows a warning, upload it from the kit's `fonts/` folder.
+3. Text is real text. Neighbouring paragraphs and bullet lists share one text box, so they reflow when you edit them.
+4. Boxes, lines, rings and the frame are Canva shapes. Photos are separate pictures already cut to their shape (circle, diagonal corner, rounded card); the originals are in `photos/`.
+5. Charts and small icons arrive as pictures. To change a number, edit `src/charts/*.json` and export again.
+6. Compare each page with the matching image in `pages/`. Small spacing differences are normal.
 
 Do your edits in code first and keep Canva for final touches. Changes made in Canva don't flow back into the code.

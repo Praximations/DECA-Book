@@ -1,7 +1,7 @@
 {
   "event": "BUYING AND MERCHANDISING OPERATIONS RESEARCH EVENT",
   "projectTitle": "Rooted in Return",
-  "subtitle": "A strategic plan to strengthen customer loyalty<br>and repeat engagement at Blis Farms",
+  "subtitle": "Rooted in Return: a strategy for customer loyalty<br>and repeat engagement",
   "business": "Blis Farms",
   "school": "High School Name",
   "address": "School Address",
@@ -11,7 +11,7 @@
     "Participant Two",
     "Participant Three"
   ],
-  "date": "Month Day, 2027",
+  "date": "April 8, 2027",
   "limits": {
     "bodyPages": 20,
     "pdfMegabytes": 50
@@ -36,12 +36,13 @@
         600
       ],
       "italicWeights": [
-        400
+        400,
+        500
       ]
     },
     {
-      "family": "Google Sans",
-      "package": "google-sans",
+      "family": "DM Sans",
+      "package": "dm-sans",
       "weights": [
         400,
         500,

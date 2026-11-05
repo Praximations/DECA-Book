@@ -1,111 +1,88 @@
-/* Title page, built like the new Blis homepage hero (Praximations/blis,
-   blis-home.css "Homepage hero", portrait layout): the terrace photo forms a
-   band with the products standing on the stone ledge, it fades into the
-   paper, and the words sit below. Then the facts DECA requires. */
-.page.cover { padding: 0; gap: 0; background: var(--color-surface); }
+/* Title page: last year's cover layout, refined in the new Blis website's style.
+   Same pieces in the same places as last year (date top left, spaced-out event
+   name, rule, BLIS FARMS, round logo medallion, diagonal photo corners, curved
+   lines bottom right, gold frame) with the website's serif, gold and warm sand,
+   cleaner geometry, Blis's own Mediterranean photos, and the school and
+   participant details DECA requires. Everything sits on a 4.25in centre line. */
+.page.cover { padding: 0; gap: 0; display: block; background: var(--color-sand); }
+.cover > * { position: absolute; }
 
-/* The hero's faint white paper texture behind the whole page */
-.cover-paper {
-  position: absolute; inset: 0; z-index: 0;
-  background:
-    linear-gradient(rgb(255 255 255 / .9), rgb(255 255 255 / .9)),
-    url("../assets/images/home-hero-paper.jpg") repeat left top;
-  background-size: 100% 100%, 5in auto;
+/* Diagonal photo corners: 45° cuts, each edged with a gold band and a fine line */
+.cv-corner { object-fit: cover; display: block; }
+.cv-corner--tr {
+  left: 5.5in; top: 0; width: 3in; height: 3in;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  object-position: 70% 40%;
 }
+.cv-corner--bl {
+  left: 0; top: 7.3in; width: 3.7in; height: 3.7in;
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  object-position: 60% 70%;
+}
+.cv-band { height: 0.1in; background: var(--color-gold); transform: rotate(45deg); }
+.cv-fine { height: 1.5px; background: var(--color-gold-light); transform: rotate(45deg); }
+/* centred on each cut; a rotated box turns around its own centre */
+.cv-band--tr { width: 4.6in; left: calc(7in - 2.3in);  top: calc(1.5in - 0.05in); }
+.cv-fine--tr { width: 3.9in; left: calc(7.24in - 1.95in); top: 1.26in; }
+.cv-band--bl { width: 5.6in; left: calc(1.85in - 2.8in); top: calc(9.15in - 0.05in); }
+.cv-fine--bl { width: 4.9in; left: calc(1.61in - 2.45in); top: 9.39in; }
 
-/* Photo band ------------------------------------------------------------ */
-.cover-scene {
-  --hero-fx: .86;        /* where the photo is cropped, as on the site's portrait layout */
-  --hero-scale: 1.12;
-  position: relative; z-index: 1;
-  height: 6.05in;
-  flex: none;
-}
-.cover-stage { position: absolute; inset: 0; container-type: size; overflow: hidden; }
-.cover-backdrop {
-  position: absolute; inset: 0;
-  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 74%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 0, #000 74%, transparent 100%);
-}
-.cover-backdrop img {
-  display: block; width: 100%; height: 100%;
-  object-fit: cover; object-position: calc(var(--hero-fx) * 100%) 100%;
-}
-/* white veil at the top so the logo reads, like the site's navbar veil */
-.cover-backdrop .veil {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgb(255 255 255 / .82), rgb(255 255 255 / .55) 1.75in, transparent 3in);
-}
-/* Products placed in the photo's own coordinates (photo is 1942 x 809) */
-.cover-products {
-  --s: max(100cqh / 809, 100cqw / 1942);
-  --ix: calc((100cqw - var(--s) * 1942) * var(--hero-fx));
-  --ph: calc(var(--s) * 291 * var(--hero-scale));
-  --pw: calc(var(--ph) * 1.16);
-  --cx: calc(var(--ix) + var(--s) * 1540);
-  --cx-min: calc(var(--ix) + var(--s) * 1290 + var(--pw) / 2);
-  --cx-max: calc(100cqw - var(--pw) / 2 - 24px);
-  position: absolute;
-  left: calc(min(max(var(--cx), var(--cx-min)), var(--cx-max)) - var(--pw) / 2);
-  bottom: calc(var(--s) * 173);
-  width: var(--pw); height: var(--ph);
-}
-.cover-products img { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
-.cover-products .shadow {
-  position: absolute; z-index: 0; left: 3%; right: 0; bottom: 2%; height: 5%;
+/* Curved lines: quarter circles around the bottom-right corner */
+.cv-arc {
+  border: 1px solid rgb(255 255 255 / .85);
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(42 42 42 / .36), rgb(42 42 42 / .14) 58%, transparent);
-  filter: blur(2px);
+  width: calc(var(--r) * 2); height: calc(var(--r) * 2);
+  left: calc(8.5in - var(--r)); top: calc(11in - var(--r));
 }
 
-.cover-logo { position: absolute; z-index: 2; top: 0.5in; left: var(--margin-x); height: 0.95in; width: auto; }
-.cover-date {
-  position: absolute; z-index: 2; top: 0.62in; right: var(--margin-x);
-  font-family: var(--font-display); font-size: 9pt; font-weight: 500;
-  letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-gold-deep);
-}
-/* Handwritten note on the photo, as on the site's About page */
-.cover-note {
-  position: absolute; z-index: 2; left: var(--margin-x); bottom: 1.6in;
-  font-family: var(--font-hand); font-size: 17pt; line-height: 1.05;
-  color: var(--color-on-dark);
-  text-shadow: 0 1px 6px rgb(0 0 0 / .25);
+/* Date, top left */
+.cv-date {
+  left: 0.6in; top: 0.36in;
+  font-size: 11pt; font-weight: 600; letter-spacing: 0.02em; color: var(--color-ink);
 }
 
-/* Words ----------------------------------------------------------------- */
-.cover-words {
-  position: relative; z-index: 1;
-  padding: 0.05in var(--margin-x) 0;
-  display: flex; flex-direction: column;
+/* Event, rule, name, subtitle */
+.cv-head {
+  left: 0; width: 8.5in; top: 1.02in;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
 }
-.cover-eyebrow {
-  display: flex; align-items: center; gap: 16px;
-  font-family: var(--font-display); font-size: 9pt; font-weight: 500; line-height: 1.5;
-  letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-gold-deep);
+.cv-event {
+  font-size: 9.5pt; font-weight: 500; line-height: 1.9;
+  letter-spacing: 0.42em; text-transform: uppercase; color: var(--color-ink);
+  text-align: center;
+  margin-right: -0.42em; /* letter-spacing adds space after the last letter; keep it centred */
 }
-.cover-eyebrow .line { width: 36px; height: 1px; background: var(--color-gold); flex: none; }
-.cover-title {
-  margin-top: 10px;
-  font-family: var(--font-display); font-size: 66pt; font-weight: 400;
-  line-height: 1; letter-spacing: -0.012em; color: var(--color-ink);
+.cv-rule { width: 2.6in; height: 1.5px; background: var(--color-ink); margin: 0.2in 0 0.24in; }
+.cv-name {
+  font-family: var(--font-display); font-size: 58pt; font-weight: 500; line-height: 1;
+  letter-spacing: 0.07em; margin-right: -0.07em; color: var(--color-gold-title);
 }
-.cover-rule { width: 30px; height: 1px; background: var(--color-gold); margin: 20px 0 16px; }
-.cover-subtitle {
-  max-width: 4.65in;
-  font-size: 12.5pt; line-height: 1.6; color: var(--color-ink-soft);
+.cv-sub {
+  margin-top: 0.16in;
+  font-family: var(--font-display); font-style: italic; font-size: 13.5pt; line-height: 1.45;
+  color: var(--color-ink-soft); text-align: center;
 }
 
-/* The facts DECA requires on the title page ------------------------------ */
-.cover-meta {
-  position: relative; z-index: 1;
-  margin: auto var(--margin-x) 0.55in;
-  padding-top: 0.22in;
-  border-top: 1px solid var(--color-line-gold);
-  display: grid; grid-template-columns: 1.15fr 1fr 1.2fr 0.85fr; column-gap: 0.22in;
+/* Logo medallion: gold ring, a ring of olive grove seen from above, gold ring, white disc */
+.cv-medallion { left: calc(4.25in - 2.15in); top: 3.66in; width: 4.3in; height: 4.3in; }
+.cv-medallion > * { position: absolute; border-radius: 50%; }
+.cv-ring        { inset: 0; background: var(--color-gold); }
+.cv-ring-photo  { inset: 0.07in; width: calc(100% - 0.14in); height: calc(100% - 0.14in); object-fit: cover; object-position: 50% 50%; }
+.cv-ring-inner  { inset: 0.23in; background: var(--color-gold); }
+.cv-disc        { inset: 0.28in; background: var(--color-surface); box-shadow: 0 6px 18px rgb(73 54 26 / .22); }
+.cv-logo        { border-radius: 0; height: 2.2in; width: auto; left: 50%; top: 50%; transform: none; margin: -1.13in 0 0 -0.965in; }
+
+/* The facts DECA requires, centred under the medallion */
+.cv-info {
+  left: 0; width: 8.5in; top: 8.38in;
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px;
 }
-.meta-item { display: flex; flex-direction: column; gap: 7px; }
-.meta-label {
+.cv-label {
   font-family: var(--font-display); font-size: 8pt; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-gold-deep);
+  letter-spacing: 0.24em; margin-right: -0.24em; text-transform: uppercase; color: var(--color-gold-deep);
 }
-.meta-value { font-size: 9pt; line-height: 1.6; color: var(--color-ink); }
+.cv-value { font-size: 9.5pt; line-height: 1.55; color: var(--color-ink); text-align: center; }
+.cv-label + .cv-value { margin-bottom: 10px; }
+
+/* Gold frame around the page edge, on top of the photos */
+.cv-frame { inset: 0; border: 0.09in solid var(--color-gold); }

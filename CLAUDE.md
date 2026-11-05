@@ -11,18 +11,26 @@ A DECA Business Operations Research written entry (2026–27 topic: customer loy
 - The PDF must stay under 50 MB.
 - Run `npm run all` after changes. It must end with "No penalty risks found" and no overflow warnings.
 
-## Brand: the NEW Blis Farms theme (repo Praximations/blis, VIEW ONLY: never change it)
-- The design source is the new theme in `/home/user/blis`, not the live blisfarms.com. Read its
-  `assets/blis-*.css` and `sections/*.liquid` for reference. Never edit, commit or run code in that repo.
-- Type: EB Garamond (titles, weight 400, plus small letterspaced caps for eyebrows), Google Sans (text),
-  Caveat (handwritten photo notes). All three are Google Fonts.
+## Brand: inspired by the NEW Blis Farms theme (repo Praximations/blis, VIEW ONLY: never change it)
+- The new theme in `/home/user/blis` is the reference for the look, not a template to copy. The book should
+  fit the website's style without matching it exactly. Read its `assets/blis-*.css` and `sections/*.liquid`.
+  Never edit, commit or run code in that repo.
+- Type: EB Garamond (titles, plus small letterspaced caps for labels), DM Sans (text; the site uses Google Sans,
+  and DM Sans is the closest match that Canva has built in), Caveat (handwritten notes).
 - Colors: gold `#BA9561`, gold-deep `#9C6C28` for small gold text, charcoal `#2A2A2A`, soft text `#4F4F4F`,
-  warm paper `#FCF9F3`, linen `#F3F2EE`, and the shop's section tones (wheat, olive, clay, sage, cream).
-- Motifs: a 30px gold hairline under titles; eyebrows followed by a 36px gold line; photos that fade into paper;
-  arched photo windows with a white disc; soft rounded corners (10px); white paper texture.
+  warm paper `#FCF9F3`, sand `#EFE6D8` on the cover, and the shop's section tones.
+- The title page keeps LAST YEAR'S cover layout (date top left, spaced-out event, rule, BLIS FARMS, logo
+  medallion, 45° photo corners with gold bands, arcs bottom right, gold frame), refined, plus the required
+  school and participant details. See `src/styles/cover.css`.
 - Photos: the user has given permission to use Blis photos. Copy them from `/home/user/blis/assets/` into
   `src/assets/images/raw/`. Where no photo fits, use a labelled placeholder.
-- The title page follows the theme's homepage hero in its portrait layout (`src/styles/cover.css`).
+
+## Canva
+- `npm run canva` writes the PowerPoint and `dist/<name>-Canva-Kit.zip` (pptx, photos, logo, fonts, page images).
+- Keep pages Canva-friendly: real text, not images of text. Use simple shapes (rect, rounded rect, circle, lines,
+  45° rotated bars). Cut photos with `border-radius` or `clip-path: polygon(...)`; the exporter bakes those shapes.
+  Avoid gradients, masks and blend modes on anything that should stay editable. Those get flattened.
+- Paragraphs (`p`) and list items (`li`) that are neighbours, with the same width, share one text box in Canva.
 
 ## Conventions
 - Change colors, fonts and spacing only in `src/styles/tokens.css`. Don't hard-code hex values in pages.

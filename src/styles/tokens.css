@@ -1,6 +1,6 @@
 /* =====================================================================
    DESIGN TOKENS: the ONLY place colors, fonts and spacing are defined.
-   Taken from the NEW Blis Farms theme (Praximations/blis, assets/blis-base.css
+   Inspired by the NEW Blis Farms theme (Praximations/blis, assets/blis-base.css
    and the bundle's color scale). Change a value here and every page
    (PDF + PowerPoint) follows.
    ===================================================================== */
@@ -25,6 +25,10 @@
   --color-line:       #E7E2D8;   /* hairlines on paper                     */
   --color-line-gold:  #C7B8A0;   /* [field-line]                           */
 
+  /* Cover (last year's layout, refined): warm sand page and a deeper gold for the name */
+  --color-sand:       #EFE6D8;
+  --color-gold-title: #A98148;
+
   /* The shop's section tones: a soft paper and a deeper accent each */
   --tone-wheat-paper: #F8F0E2;  --tone-wheat-deep: #946C3A;
   --tone-olive-paper: #F0F1E3;  --tone-olive-deep: #626E3B;
@@ -47,7 +51,8 @@
 
   /* Typography: the theme's three families, all Google Fonts (Canva has them) */
   --font-display: "EB Garamond", Georgia, serif;     /* titles  [font-serif] */
-  --font-body:    "Google Sans", Arial, sans-serif;  /* text    [font-text]  */
+  --font-body:    "DM Sans", Arial, sans-serif;      /* text: the theme uses Google Sans; DM Sans is its
+                                                       closest match that Canva has built in */
   --font-hand:    "Caveat", cursive;                 /* notes   [font-hand]  */
 
   --size-title:   36pt;   /* section titles (I., II., ...) */

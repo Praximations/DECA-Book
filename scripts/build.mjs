@@ -45,10 +45,11 @@ const icon = (html) => html.replace(/\{\{\s*icon\s+([\w-]+)\s*\}\}/g, (m, name) 
   if (!fs.existsSync(f)) { console.warn(`⚠ unknown icon ${name}`); return ''; }
   return fs.readFileSync(f, 'utf8').trim();
 });
-const fill = (html) => icon(html).replace(/\{\{\s*([\w.]+)\s*\}\}/g, (m, key) => {
+// {{key}} inserts a value; a list is one item per line, {{key|dots}} puts a list on one line
+const fill = (html) => icon(html).replace(/\{\{\s*([\w.]+)\s*(\|\s*dots)?\s*\}\}/g, (m, key, dots) => {
   const v = key.split('.').reduce((o, k) => (o ?? {})[k], cfg);
   if (v === undefined) { console.warn(`⚠ unknown placeholder ${m}`); return m; }
-  return Array.isArray(v) ? v.join('<br>') : v;
+  return Array.isArray(v) ? v.join(dots ? ' · ' : '<br>') : v;
 });
 const pageFiles = fs.readdirSync(path.join(SRC, 'pages')).filter((f) => f.endsWith('.html')).sort();
 const pages = pageFiles.map((f) => `<!-- ${f} -->\n` + fill(fs.readFileSync(path.join(SRC, 'pages', f), 'utf8').trim()));

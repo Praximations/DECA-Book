@@ -8,7 +8,8 @@
     "pptx": "node scripts/build.mjs && node scripts/export-pptx.mjs",
     "preview": "node scripts/preview.mjs",
     "check": "node scripts/check.mjs",
-    "all": "node scripts/build.mjs && node scripts/export-pdf.mjs && node scripts/export-pptx.mjs && node scripts/preview.mjs && node scripts/check.mjs"
+    "all": "node scripts/build.mjs && node scripts/export-pdf.mjs && node scripts/export-pptx.mjs && node scripts/export-canva-kit.mjs && node scripts/preview.mjs && node scripts/check.mjs",
+    "canva": "node scripts/build.mjs && node scripts/export-pptx.mjs && node scripts/export-canva-kit.mjs"
   },
   "repository": {
     "type": "git",
@@ -20,8 +21,8 @@
   "homepage": "https://github.com/Praximations/DECA-Book#readme",
   "dependencies": {
     "@fontsource/caveat": "^5.3.0",
+    "@fontsource/dm-sans": "^5.3.0",
     "@fontsource/eb-garamond": "^5.3.0",
-    "@fontsource/google-sans": "^5.3.2",
     "pptxgenjs": "^4.0.1",
     "sharp": "^0.35.5"
   },
