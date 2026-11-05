@@ -17,6 +17,7 @@
       if (!footer) {
         footer = document.createElement('div');
         footer.className = 'page-footer';
+        footer.dataset.generated = '1';
         page.appendChild(footer);
       }
       footer.innerHTML =
@@ -53,6 +54,7 @@
                   `<span class="toc-sub-page">${subPage[s.section + m[1]] ?? ''}</span></div>`);
       });
     });
+    toc.dataset.generated = '1';
     toc.innerHTML = rows.join('');
   }
 
@@ -183,6 +185,7 @@
     document.querySelectorAll('figure.chart[data-chart]').forEach((fig) => {
       const d = (window.CHARTS || {})[fig.dataset.chart];
       if (!d) { fig.innerHTML = `<div class="todo">Missing chart data: ${fig.dataset.chart}</div>`; return; }
+      fig.dataset.generated = '1';
       const W = fig.clientWidth, H = parseFloat(fig.dataset.height || 2.2) * 96;
       const svg = RENDERERS[d.type](d, W, H);
       fig.innerHTML =

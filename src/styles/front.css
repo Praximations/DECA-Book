@@ -8,7 +8,8 @@
 /* Shared pieces ---------------------------------------------------------- */
 .page.front-page { padding: 0; gap: 0; display: block; background: var(--color-sand); }
 
-/* Gold frame around the page edge, with a fine inner line */
+/* Gold frame around the page edge, with a fine inner line (click-through in the studio) */
+.fr-frame, .fr-frame-inner, .cv-arc { pointer-events: none; }
 .fr-frame { position: absolute; inset: 0; border: 0.09in solid var(--color-gold); }
 .fr-frame-inner { position: absolute; inset: 0.17in; border: 1px solid var(--color-gold-light); }
 
@@ -38,11 +39,11 @@
 /* Title page ------------------------------------------------------------- */
 .cover > * { position: absolute; }
 .cover .corner--tr { --s: 3in;   left: 5.5in; top: 0; }
-.cover .corner--bl { --s: 3.7in; left: 0;     top: 7.3in; }
+.cover .corner--bl { --s: 3.5in; left: 0;     top: 7.5in; }
 
 /* Curved lines: quarter circles around the bottom-right corner */
 .cv-arc {
-  border: 1px solid rgb(255 255 255 / .9);
+  border: 1px solid rgb(255 255 255 / 1);
   border-radius: 50%;
   width: calc(var(--r) * 2); height: calc(var(--r) * 2);
   left: calc(8.5in - var(--r)); top: calc(11in - var(--r));
@@ -74,29 +75,30 @@
 }
 
 /* Logo medallion: gold ring, a ring of Greek sea, gold ring, white disc */
-.cv-medallion { left: calc(4.25in - 2.05in); top: 3.95in; width: 4.1in; height: 4.1in; }
+.cv-medallion { left: calc(4.25in - 2in); top: 3.9in; width: 4in; height: 4in; }
 .cv-medallion > * { position: absolute; border-radius: 50%; }
 .cv-ring       { inset: 0; background: var(--color-gold); }
 .cv-ring-photo { inset: 0.06in; width: calc(100% - 0.12in); height: calc(100% - 0.12in); object-fit: cover; object-position: 50% 42%; }
 .cv-ring-inner { inset: 0.25in; background: var(--color-gold); }
 .cv-disc       { inset: 0.3in; background: var(--color-surface); box-shadow: 0 6px 18px rgb(73 54 26 / .22); }
-.cv-logo       { border-radius: 0; height: 2.05in; width: auto; left: 50%; top: 50%; transform: none; margin: -1.06in 0 0 -0.9in; }
+.cv-logo       { border-radius: 0; height: 2in; width: auto; left: 50%; top: 50%; transform: none; margin: -1.04in 0 0 -0.88in; }
 
 /* The facts DECA requires, centred under the medallion */
 .cv-info {
-  left: 0; width: 8.5in; top: 8.42in;
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  left: 0; width: 8.5in; top: 8.12in;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
 }
 .cv-value { font-size: 11pt; line-height: 1.5; color: var(--color-ink); text-align: center; }
-.fr-label + .cv-value { margin-bottom: 12px; }
+.fr-label + .cv-value { margin-bottom: 10px; }
 
 /* Table of contents ------------------------------------------------------ */
 .contents-page .corner--tr { --s: 2.35in; left: 6.15in; top: 0; }
+.contents-page .corner--bl { --s: 1.6in; left: 0; top: 9.4in; }
 .toc-body {
-  position: absolute; left: 0.85in; right: 0.85in; top: 0.95in; bottom: 0.7in;
+  position: absolute; left: 0.85in; right: 0.85in; top: 0.85in; bottom: 0.62in;
   display: flex; flex-direction: column;
 }
-.toc-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 0.3in; }
+.toc-head { display: flex; flex-direction: column; gap: 8px; margin-bottom: 0.2in; }
 .toc-head .fr-label { text-align: left; margin-right: 0; }
 .toc-head h1 { font-size: 36pt; }
 .toc-head .rule { width: 30px; height: 1px; background: var(--color-gold); margin-top: 4px; }
@@ -104,27 +106,27 @@
 .toc { display: flex; flex-direction: column; }
 .toc-sec {
   display: flex; align-items: baseline; gap: 8px;
-  padding: 7px 0 3px;
+  padding: 6px 0 2px;
   font-family: var(--font-display); font-size: 15pt; font-weight: 500; color: var(--color-ink);
 }
-.toc-num { width: 0.55in; flex: none; color: var(--color-gold-deep); }
+.toc-num { width: 0.55in; flex: none; padding-right: 9px; text-align: right; color: var(--color-gold-deep); }
 .toc-leader { flex: 1; align-self: flex-end; height: 0; margin: 0 6px 5px; border-bottom: 1.5px dotted var(--color-gold-light); }
 .toc-page { flex: none; min-width: 0.3in; text-align: right; }
 .toc-sub {
   display: flex; align-items: baseline; gap: 6px;
-  padding: 2px 0 2px 0.55in;
-  font-size: 9.5pt; line-height: 1.4; color: var(--color-ink-soft);
+  padding: 1.5px 0 1.5px 0.55in;
+  font-size: 10pt; line-height: 1.32; color: var(--color-ink-soft);
 }
 .toc-sub-label { width: 0.25in; flex: none; font-weight: 600; color: var(--color-gold-deep); }
 .toc-sub-text { flex: 1; }
 .toc-sub-page { flex: none; min-width: 0.3in; text-align: right; font-family: var(--font-display); font-size: 10.5pt; color: var(--color-ink); }
-.toc-desc .toc-sub-text { font-style: italic; }
+.toc-desc .toc-sub-text { font-family: var(--font-display); font-style: italic; font-size: 10.5pt; color: var(--color-text-warm); }
 .toc-sec + .toc-sub { padding-top: 0; }
-.toc-sub:has(+ .toc-sec), .toc-sub:last-child { padding-bottom: 8px; }
+.toc-sub:has(+ .toc-sec), .toc-sub:last-child { padding-bottom: 6px; }
 
 .toc-foot {
-  margin-top: auto; padding-top: 0.2in;
-  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-top: auto; padding-top: 0.15in;
+  display: flex; justify-content: flex-end; align-items: flex-end;
   font-size: 8pt; color: var(--color-muted);
 }
 .toc-foot img { height: 0.42in; width: auto; display: block; }

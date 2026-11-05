@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "DECA Book: Studio (live editor)",
+      "type": "npm",
+      "script": "studio",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    { "label": "DECA Book: Export everything", "type": "npm", "script": "all", "problemMatcher": [] },
+    { "label": "DECA Book: PDF", "type": "npm", "script": "pdf", "problemMatcher": [] },
+    { "label": "DECA Book: PowerPoint + Canva kit", "type": "npm", "script": "canva", "problemMatcher": [] },
+    { "label": "DECA Book: Penalty check", "type": "npm", "script": "check", "problemMatcher": [] }
+  ]
+}

@@ -4,7 +4,8 @@ import path from 'node:path';
 import { DIST, openBook, config, mb } from './lib.mjs';
 
 const cfg = config();
-const out = path.join(DIST, `${cfg.outputName || 'DECA-Book'}.pdf`);
+const suffix = process.env.IMG_PRESET === 'compact' ? '-compact' : '';
+const out = path.join(DIST, `${cfg.outputName || 'DECA-Book'}${suffix}.pdf`);
 const { browser, page } = await openBook();
 await page.emulateMedia({ media: 'print' });
 await page.pdf({ path: out, preferCSSPageSize: true, printBackground: true, tagged: true, outline: true });

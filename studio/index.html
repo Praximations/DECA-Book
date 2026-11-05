@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DECA Book Studio</title>
+<style>
+  :root { --bg: #1b1b1f; --panel: #26262b; --line: #3a3a41; --text: #ececf1; --muted: #9a9aa6; --accent: #BA9561; --accent-2: #DBBA87; --danger: #e5484d; }
+  * { box-sizing: border-box; }
+  body { margin: 0; height: 100vh; display: grid; grid-template-columns: 300px 1fr 320px; grid-template-rows: 46px 1fr; font: 13px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; padding: 0 14px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  header .brand { font-weight: 700; letter-spacing: .02em; }
+  header .brand span { color: var(--accent); }
+  header .status { color: var(--muted); font-size: 12px; }
+  header .spacer { flex: 1; }
+  .zoom button { margin-left: 4px; }
+  aside { overflow: auto; background: var(--panel); border-right: 1px solid var(--line); }
+  aside.right { border-right: 0; border-left: 1px solid var(--line); display: flex; flex-direction: column; }
+  main { position: relative; overflow: auto; background: #111114; }
+  iframe { border: 0; width: 100%; height: 100%; background: #111114; }
+  h3 { margin: 0; padding: 12px 14px 6px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .pages a { display: flex; justify-content: space-between; padding: 6px 14px; color: var(--text); text-decoration: none; border-left: 2px solid transparent; cursor: pointer; }
+  .pages a:hover { background: #2f2f36; }
+  .pages a.current { border-left-color: var(--accent); background: #2f2f36; }
+  .pages a small { color: var(--muted); }
+  .tabs { display: flex; border-bottom: 1px solid var(--line); }
+  .tabs button { flex: 1; background: none; border: 0; color: var(--muted); padding: 10px 4px; cursor: pointer; font: inherit; font-size: 12px; border-bottom: 2px solid transparent; }
+  .tabs button.on { color: var(--text); border-bottom-color: var(--accent); }
+  .panel { display: none; padding: 10px 14px 20px; overflow: auto; flex: 1; }
+  .panel.on { display: block; }
+  label { display: block; margin: 10px 0 4px; color: var(--muted); font-size: 12px; }
+  input[type=text], textarea, select { width: 100%; background: #1b1b1f; border: 1px solid var(--line); color: var(--text); padding: 6px 8px; border-radius: 6px; font: inherit; }
+  textarea { min-height: 70px; resize: vertical; }
+  input[type=color] { width: 34px; height: 28px; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: none; vertical-align: middle; margin-right: 6px; }
+  button { background: #33333b; border: 1px solid var(--line); color: var(--text); padding: 6px 10px; border-radius: 6px; cursor: pointer; font: inherit; }
+  button:hover { background: #3d3d46; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #1b1b1f; font-weight: 600; }
+  button.primary:hover { background: var(--accent-2); }
+  button.danger { color: var(--danger); }
+  button:disabled { opacity: .5; cursor: default; }
+  .row { display: flex; gap: 6px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+  .hint { color: var(--muted); font-size: 12px; margin: 8px 0; }
+  .sel { font-family: ui-monospace, Menlo, monospace; font-size: 12px; background: #1b1b1f; border: 1px solid var(--line); border-radius: 6px; padding: 8px; word-break: break-all; }
+  .sel .tag { color: var(--accent-2); }
+  .token { display: flex; align-items: center; gap: 6px; padding: 4px 0; }
+  .token code { width: 150px; flex: none; font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .token input[type=text] { flex: 1; }
+  .log { font-family: ui-monospace, Menlo, monospace; font-size: 11.5px; background: #111114; border: 1px solid var(--line); border-radius: 6px; padding: 8px; height: 220px; overflow: auto; white-space: pre-wrap; color: #cfcfd8; }
+  .outputs a { color: var(--accent-2); text-decoration: none; }
+  .outputs div { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--line); }
+  .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); background: #33333b; border: 1px solid var(--line); padding: 8px 14px; border-radius: 8px; opacity: 0; transition: opacity .2s; pointer-events: none; max-width: 70vw; }
+  .toast.show { opacity: 1; }
+  .toast.err { border-color: var(--danger); }
+  .imgpick { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+  .imgpick button { padding: 0; overflow: hidden; border-radius: 6px; aspect-ratio: 4/3; background: #1b1b1f; }
+  .imgpick img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  kbd { background: #1b1b1f; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-size: 11px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">DECA Book <span>Studio</span></div>
+  <div class="status" id="status">connecting…</div>
+  <div class="spacer"></div>
+  <div class="zoom">
+    <button data-zoom="fit">Fit</button><button data-zoom="0.75">75%</button><button data-zoom="1">100%</button><button data-zoom="1.5">150%</button>
+  </div>
+</header>
+
+<aside class="left">
+  <h3>Pages</h3>
+  <nav class="pages" id="pages"></nav>
+  <h3>How to use</h3>
+  <div class="hint" style="padding: 0 14px">
+    Click anything on a page to select it. <b>Double-click text</b> to edit it in place; <kbd>Enter</kbd> saves, <kbd>Esc</kbd> cancels.<br><br>
+    Edits are written straight into <code>src/pages</code>. Saving a file in VS Code refreshes the preview too.
+  </div>
+</aside>
+
+<main><iframe id="frame" src="/book.html"></iframe></main>
+
+<aside class="right">
+  <div class="tabs">
+    <button class="on" data-tab="inspect">Element</button>
+    <button data-tab="details">Book details</button>
+    <button data-tab="brand">Brand kit</button>
+    <button data-tab="export">Export</button>
+  </div>
+
+  <div class="panel on" id="inspect">
+    <div id="nothing" class="hint">Nothing selected. Click an element on a page.</div>
+    <div id="selected" style="display:none">
+      <div class="sel" id="selinfo"></div>
+      <div class="row">
+        <button id="editBtn" class="primary">Edit text</button>
+        <button id="saveBtn" class="primary" style="display:none">Save</button>
+        <button id="cancelBtn" style="display:none">Cancel</button>
+        <a id="vscode" href="#"><button>Open in VS Code</button></a>
+        <button id="parentBtn" title="Select the element around this one">Select parent</button>
+      </div>
+      <div id="imgTools" style="display:none">
+        <label>Replace photo</label>
+        <div class="imgpick" id="imgpick"></div>
+      </div>
+      <label>Classes</label>
+      <input type="text" id="classField">
+      <label>Inline style</label>
+      <input type="text" id="styleField" placeholder="e.g. margin-top: 12px">
+      <div class="row"><button id="applyAttrs">Apply</button></div>
+      <div class="hint">Classes come from <code>src/styles/components.css</code>. Prefer a class over an inline style when one exists.</div>
+    </div>
+  </div>
+
+  <div class="panel" id="details">
+    <div class="hint">These fill the <code>{{placeholders}}</code> on the title page and elsewhere. Lists: one item per line.</div>
+    <form id="detailsForm"></form>
+  </div>
+
+  <div class="panel" id="brand">
+    <div class="hint">Every colour, font and size the book uses, from <code>src/styles/tokens.css</code>. Changes preview live.</div>
+    <div id="tokens"></div>
+  </div>
+
+  <div class="panel" id="export">
+    <div class="row" id="tasks"></div>
+    <div class="hint">The condensed PDF uses smaller photos; use it if the full one gets near the <span id="limit"></span> MB limit.</div>
+    <h3 style="padding-left:0">Files</h3>
+    <div class="outputs" id="outputs"></div>
+    <h3 style="padding-left:0">Log</h3>
+    <div class="log" id="log"></div>
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const frame = $('#frame');
+let state = null, sel = null, editing = null, zoom = 'fit', currentPage = null;
+
+/* ---------- helpers ---------- */
+const api = async (url, data) => {
+  const r = await fetch(url, data ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) } : {});
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+};
+let toastTimer;
+const toast = (text, err) => { const t = $('#toast'); t.textContent = text; t.className = 'toast show' + (err ? ' err' : ''); clearTimeout(toastTimer); toastTimer = setTimeout(() => (t.className = 'toast'), err ? 5000 : 2200); };
+const doc = () => frame.contentDocument;
+const pageOf = (el) => el.closest('.page');
+const pathOf = (el) => { const p = []; let n = el; while (n && !n.classList.contains('page')) { p.unshift([...n.parentElement.children].indexOf(n)); n = n.parentElement; } return n ? p : null; };
+const byPath = (file, p) => { let n = doc().querySelector(`.page[data-file="${file}"]`); for (const i of p) { n = n && n.children[i]; } return n; };
+const isText = (el) => el.tagName !== 'IMG' && el.tagName !== 'svg' && [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) || [...el.children].every((c) => getComputedStyle(c).display === 'inline' && c.tagName !== 'IMG') && el.textContent.trim();
+
+/* ---------- preview ---------- */
+function applyZoom() {
+  const d = doc(); if (!d || !d.body) return;
+  const z = zoom === 'fit' ? Math.min(1.5, (frame.clientWidth - 48) / 816) : +zoom;
+  d.documentElement.style.zoom = z;
+}
+function wireFrame() {
+  const d = doc();
+  const style = d.createElement('style');
+  style.textContent = `
+    [data-studio-hover] { outline: 1px dashed rgba(186,149,97,.9) !important; outline-offset: 1px; }
+    [data-studio-selected] { outline: 2px solid #BA9561 !important; outline-offset: 2px; }
+    [contenteditable="true"] { outline: 2px solid #4f8cff !important; outline-offset: 2px; cursor: text; }
+    .page { cursor: default; }`;
+  d.head.appendChild(style);
+  let hover = null;
+  d.addEventListener('mouseover', (e) => { if (editing) return; hover?.removeAttribute('data-studio-hover'); hover = target(e); hover?.setAttribute('data-studio-hover', ''); });
+  d.addEventListener('mouseout', () => { hover?.removeAttribute('data-studio-hover'); hover = null; });
+  d.addEventListener('click', (e) => { if (editing) return; e.preventDefault(); const t = target(e); if (t) select(t); }, true);
+  d.addEventListener('dblclick', (e) => { if (editing) return; e.preventDefault(); const t = target(e); if (t && isText(t)) { select(t); startEdit(); } }, true);
+  d.addEventListener('scroll', trackPage, { passive: true });
+  d.addEventListener('keydown', (e) => {
+    if (!editing) return;
+    if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); }
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); saveEdit(); }
+  });
+  applyZoom();
+  if (sel) { const el = byPath(sel.file, sel.path); if (el) select(el, true); else clearSel(); }
+  trackPage();
+}
+function target(e) {
+  let el = e.target;
+  if (!el || el.nodeType !== 1) return null;
+  if (el.closest('svg')) el = el.closest('svg');
+  if (el.closest('[data-generated]')) el = el.closest('[data-generated]');
+  if (!el.closest('.page') || el.classList.contains('page')) return null;
+  return el;
+}
+function trackPage() {
+  const d = doc(); if (!d) return;
+  const mid = d.documentElement.clientHeight / 2;
+  let best = null;
+  for (const p of d.querySelectorAll('.page')) { const r = p.getBoundingClientRect(); if (r.top <= mid && r.bottom >= mid) best = p; }
+  if (best && best.dataset.file !== currentPage) { currentPage = best.dataset.file; document.querySelectorAll('.pages a').forEach((a) => a.classList.toggle('current', a.dataset.file === currentPage)); }
+}
+
+/* ---------- selection ---------- */
+function clearSel() { doc()?.querySelectorAll('[data-studio-selected]').forEach((x) => x.removeAttribute('data-studio-selected')); sel = null; $('#selected').style.display = 'none'; $('#nothing').style.display = ''; }
+async function select(el, keep) {
+  if (editing && !keep) return;
+  doc().querySelectorAll('[data-studio-selected]').forEach((x) => x.removeAttribute('data-studio-selected'));
+  el.setAttribute('data-studio-selected', '');
+  const page = pageOf(el);
+  sel = { file: page.dataset.file, path: pathOf(el), el };
+  $('#nothing').style.display = 'none'; $('#selected').style.display = '';
+  const generated = !!el.closest('[data-generated]');
+  $('#selinfo').innerHTML = `<span class="tag">&lt;${el.tagName.toLowerCase()}${el.className && typeof el.className === 'string' ? ' class="' + el.className + '"' : ''}&gt;</span><br>${sel.file}` +
+    (generated ? '<br><i>generated by runtime.js: edit the data behind it (book.config.json or src/charts)</i>' : '');
+  $('#editBtn').disabled = generated || !isText(el);
+  $('#classField').value = typeof el.className === 'string' ? el.className : '';
+  $('#styleField').value = el.getAttribute('style') || '';
+  $('#applyAttrs').disabled = generated;
+  $('#imgTools').style.display = el.tagName === 'IMG' && !generated ? '' : 'none';
+  if (el.tagName === 'IMG') buildImagePicker(el);
+  $('#vscode').href = '#';
+  if (!generated) {
+    try { const l = await api('/api/locate', { file: sel.file, path: sel.path }); $('#vscode').href = `vscode://file/${l.file}${l.line ? ':' + l.line : ''}`; } catch {}
+  } else $('#vscode').href = `vscode://file/${state.root}/book.config.json`;
+  document.querySelector('[data-tab="inspect"]').click();
+}
+$('#parentBtn').onclick = () => { if (sel && sel.el.parentElement && !sel.el.parentElement.classList.contains('page')) select(sel.el.parentElement); };
+
+/* ---------- text editing ---------- */
+function startEdit() {
+  if (!sel || editing) return;
+  const el = sel.el;
+  editing = { el, original: el.innerHTML };
+  el.contentEditable = 'true'; el.focus();
+  const r = doc().createRange(); r.selectNodeContents(el); r.collapse(false);
+  const s = doc().getSelection(); s.removeAllRanges(); s.addRange(r);
+  $('#editBtn').style.display = 'none'; $('#saveBtn').style.display = ''; $('#cancelBtn').style.display = '';
+}
+function stopEdit() { if (!editing) return; editing.el.contentEditable = 'false'; editing.el.removeAttribute('contenteditable'); editing = null; $('#editBtn').style.display = ''; $('#saveBtn').style.display = 'none'; $('#cancelBtn').style.display = 'none'; }
+function cancelEdit() { if (!editing) return; editing.el.innerHTML = editing.original; stopEdit(); }
+async function saveEdit() {
+  if (!editing) return;
+  const el = editing.el;
+  const html = el.innerHTML.replace(/<div><br><\/div>/g, '<br>').replace(/<div>/g, '<br>').replace(/<\/div>/g, '').replace(/&nbsp;/g, ' ');
+  try { await api('/api/edit', { file: sel.file, path: sel.path, innerHTML: html }); stopEdit(); toast('Saved to src/pages/' + sel.file); }
+  catch (e) { toast(e.message, true); }
+}
+$('#editBtn').onclick = startEdit; $('#saveBtn').onclick = saveEdit; $('#cancelBtn').onclick = cancelEdit;
+
+/* ---------- attributes & images ---------- */
+$('#applyAttrs').onclick = async () => {
+  if (!sel) return;
+  try {
+    const cls = $('#classField').value.trim(), st = $('#styleField').value.trim();
+    await api('/api/attr', { file: sel.file, path: sel.path, name: 'class', value: cls || null });
+    await api('/api/attr', { file: sel.file, path: sel.path, name: 'style', value: st || null });
+    toast('Saved');
+  } catch (e) { toast(e.message, true); }
+};
+function buildImagePicker(el) {
+  const box = $('#imgpick'); box.innerHTML = '';
+  for (const im of state.images) {
+    if (/\.svg$/i.test(im.raw) && !/\.svg$/i.test(el.getAttribute('src'))) continue;
+    const b = document.createElement('button'); b.title = im.raw;
+    b.innerHTML = `<img src="/raw-images/${encodeURIComponent(im.raw)}" alt="">`;
+    b.onclick = async () => {
+      el.src = '/' + im.built;
+      try { await api('/api/attr', { file: sel.file, path: sel.path, name: 'src', value: im.built }); toast('Photo replaced: ' + im.raw); }
+      catch (e) { toast(e.message, true); }
+    };
+    box.appendChild(b);
+  }
+  if (!box.children.length) box.innerHTML = '<div class="hint">Drop photos into src/assets/images/raw to use them here.</div>';
+}
+
+/* ---------- panels ---------- */
+document.querySelectorAll('.tabs button').forEach((b) => (b.onclick = () => {
+  document.querySelectorAll('.tabs button').forEach((x) => x.classList.toggle('on', x === b));
+  document.querySelectorAll('.panel').forEach((p) => p.classList.toggle('on', p.id === b.dataset.tab));
+}));
+document.querySelectorAll('[data-zoom]').forEach((b) => (b.onclick = () => { zoom = b.dataset.zoom; applyZoom(); }));
+
+function renderPages() {
+  const nav = $('#pages'); nav.innerHTML = '';
+  state.pages.forEach((f, i) => {
+    const a = document.createElement('a'); a.dataset.file = f;
+    const label = f.replace(/^\d+-|^p\d+-/, '').replace(/\.html$/, '').replace(/-/g, ' ');
+    const num = /^p(\d+)/.test(f) ? 'p.' + +f.match(/^p(\d+)/)[1] : '';
+    a.innerHTML = `<span>${label}</span><small>${num}</small>`;
+    a.onclick = () => doc().querySelector(`.page[data-file="${f}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    nav.appendChild(a);
+  });
+}
+function renderDetails() {
+  const form = $('#detailsForm'); form.innerHTML = '';
+  for (const [k, v] of Object.entries(state.config)) {
+    const l = document.createElement('label'); l.textContent = k; form.appendChild(l);
+    const multi = Array.isArray(v) || /<br>/.test(v) || v.length > 60;
+    const inp = document.createElement(multi ? 'textarea' : 'input'); if (!multi) inp.type = 'text';
+    inp.value = Array.isArray(v) ? v.join('\n') : v;
+    inp.onchange = async () => { try { await api('/api/config', { key: k, value: inp.value }); toast('Saved book.config.json'); } catch (e) { toast(e.message, true); } };
+    form.appendChild(inp);
+  }
+}
+function renderTokens() {
+  const box = $('#tokens'); box.innerHTML = '';
+  let group = '';
+  for (const t of state.tokens) {
+    const g = t.name.split('-')[2] || '';
+    if (g !== group) { group = g; const h = document.createElement('h3'); h.style.paddingLeft = 0; h.textContent = g; box.appendChild(h); }
+    const row = document.createElement('div'); row.className = 'token';
+    const code = document.createElement('code'); code.textContent = t.name.slice(2); code.title = t.note || t.name; row.appendChild(code);
+    const isColor = /^#[0-9a-f]{6}$/i.test(t.value);
+    const text = document.createElement('input'); text.type = 'text'; text.value = t.value;
+    const save = async (v) => { try { await api('/api/token', { name: t.name, value: v }); } catch (e) { toast(e.message, true); } };
+    if (isColor) { const c = document.createElement('input'); c.type = 'color'; c.value = t.value; c.oninput = () => { text.value = c.value.toUpperCase(); }; c.onchange = () => save(text.value); row.appendChild(c); }
+    text.onchange = () => save(text.value.trim());
+    row.appendChild(text); box.appendChild(row);
+  }
+}
+function renderExport() {
+  const box = $('#tasks'); box.innerHTML = '';
+  for (const [task, label] of Object.entries(state.tasks)) {
+    const b = document.createElement('button'); b.textContent = label; if (task === 'pdf' || task === 'canva') b.className = 'primary';
+    b.onclick = async () => { try { await api('/api/run', { task }); document.querySelector('[data-tab="export"]').click(); } catch (e) { toast(e.message, true); } };
+    box.appendChild(b);
+  }
+  $('#limit').textContent = state.limit;
+  renderOutputs(state.outputs);
+}
+function renderOutputs(list) {
+  const box = $('#outputs'); box.innerHTML = list.length ? '' : '<div class="hint">No exports yet.</div>';
+  for (const o of list) { const d = document.createElement('div'); d.innerHTML = `<a href="/${o.file}" download>${o.file}</a><span>${o.size}</span>`; box.appendChild(d); }
+}
+function log(text) { const l = $('#log'); l.textContent += text + '\n'; l.scrollTop = l.scrollHeight; }
+
+/* ---------- events ---------- */
+async function refreshState() { state = await api('/api/state'); renderPages(); renderDetails(); renderTokens(); renderExport(); }
+const es = new EventSource('/events');
+es.addEventListener('hello', () => ($('#status').textContent = 'live: watching src/ and book.config.json'));
+es.addEventListener('reload', async () => {
+  const d = doc(); const y = d ? d.documentElement.scrollTop : 0;
+  stopEdit();
+  frame.addEventListener('load', () => { wireFrame(); doc().documentElement.scrollTop = y; }, { once: true });
+  frame.contentWindow.location.reload();
+  const s = await api('/api/state'); state.tokens = s.tokens; state.config = s.config; state.images = s.images;
+  if (!document.activeElement || !document.activeElement.closest('#brand, #details')) { renderTokens(); renderDetails(); }
+  $('#status').textContent = 'rebuilt ' + new Date().toLocaleTimeString();
+});
+es.addEventListener('log', (e) => { const m = JSON.parse(e.data); if (m.start) $('#log').textContent = ''; log(m.text); });
+es.addEventListener('done', (e) => { const m = JSON.parse(e.data); log(m.code ? `✗ ${state.tasks[m.task]} finished with errors` : `✓ ${state.tasks[m.task]} done`); renderOutputs(m.outputs); toast(m.code ? state.tasks[m.task] + ' failed, see the log' : state.tasks[m.task] + ' ready', !!m.code); });
+es.onerror = () => ($('#status').textContent = 'disconnected: is `npm run studio` still running?');
+window.addEventListener('resize', applyZoom);
+frame.addEventListener('load', wireFrame);
+refreshState();
+</script>
+</body>
+</html>

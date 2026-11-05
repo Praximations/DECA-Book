@@ -27,6 +27,13 @@ A DECA Business Operations Research written entry (2026–27 topic: customer loy
 - Photos: the user has given permission to use Blis photos. Copy them from `/home/user/blis/assets/` into
   `src/assets/images/raw/`. Where no photo fits, use a labelled placeholder.
 
+## Studio and file size
+- `npm run studio` serves a local editor (http://localhost:4321): live preview, click-to-edit text, photo swap,
+  brand kit, book details, export buttons. It writes back into `src/pages`, `tokens.css` and `book.config.json`
+  (scripts/studio.mjs + studio/index.html). Elements the runtime generates carry `data-generated` and are not editable there.
+- Keep the PDF light: photos go through `optimize-images.mjs` (2400 px max). `npm run condense` makes a 1600 px copy.
+  Don't add heavy decoration (big textures, many full-page photos) that would bloat the PDF.
+
 ## Canva
 - `npm run canva` writes the PowerPoint and `dist/<name>-Canva-Kit.zip` (pptx, photos, logo, fonts, page images).
 - Keep pages Canva-friendly: real text, not images of text. Use simple shapes (rect, rounded rect, circle, lines,
