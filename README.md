@@ -35,7 +35,7 @@ src/pages/                one file per page, in order:
 src/charts/*.json         chart data: edit numbers here and the chart redraws
 src/assets/images/raw/    drop original photos here (any size); build compresses them
 src/styles/cover.css      title page
-src/icons/*.svg           Greek-key icons from blisfarms.com, used as {{icon key-1}}
+src/icons/*.svg           small icons, used as {{icon key-1}}
 src/js/runtime.js         page numbers, table of contents, chart drawing
 scripts/                  build + export + check tooling
 docs/                     page plan, visual ideas
@@ -57,8 +57,9 @@ docs/                     page plan, visual ideas
 ## Importing into Canva
 
 1. In Canva, choose **Create a design → Import file** and pick `dist/Blis-Farms-DECA-Book.pptx`.
-2. The font is Urbanist, a Google Font that Canva already has. PowerPoint only knows regular and bold, so medium-weight text (500) imports as regular. Set it back to Medium in Canva if you want it to match the PDF exactly.
-3. Text boxes are slightly wider than their text, so Canva's font rendering doesn't add new line breaks. Small spacing differences are normal; tidy them in Canva.
-4. Charts arrive as images. To change a number, edit `src/charts/*.json` and export again.
+2. The fonts are EB Garamond, Google Sans and Caveat, the same as the new Blis website. PowerPoint only knows regular and bold, so medium-weight text (500) imports as regular. If Canva doesn't offer Google Sans, upload it from `node_modules/@fontsource/google-sans` or switch that text to a similar sans.
+3. The title page's photo and products come in as one flattened picture. Everything written on the page stays editable.
+4. Text boxes are slightly wider than their text, so Canva's font rendering doesn't add new line breaks. Small spacing differences are normal; tidy them in Canva.
+5. Charts arrive as images. To change a number, edit `src/charts/*.json` and export again.
 
 Do your edits in code first and keep Canva for final touches. Changes made in Canva don't flow back into the code.

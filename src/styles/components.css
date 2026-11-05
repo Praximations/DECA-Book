@@ -5,9 +5,9 @@
 .section-head { display: flex; flex-direction: column; gap: 6px; }
 .eyebrow {
   font-family: var(--font-display);
-  font-size: var(--size-small);
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 9pt;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-gold-deep);
 }

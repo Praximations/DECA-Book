@@ -1,53 +1,46 @@
 <!-- TITLE PAGE (not numbered). Facts come from book.config.json.
      DECA requires: event name, school name, school address, city/state/ZIP, participants, date. -->
 <section class="page cover">
-  <header class="cover-top">
-    <img class="cover-logo" src="assets/images/blis-farms-logo.svg" alt="Blis Farms logo">
-    <div class="cover-event">
-      <span>Buying and Merchandising<br>Operations Research Event</span>
-      {{icon key-1}}
-    </div>
-  </header>
+  <div class="cover-paper" data-bleed></div>
 
-  <div class="cover-hero">
-    {{icon key-3}}
-    <h1 class="cover-title">{{projectTitle}}</h1>
-    <div class="dash"></div>
-    <p class="cover-subtitle">{{subtitle}}</p>
+  <div class="cover-scene" data-bleed>
+    <!-- photo + products are flattened into one picture in the PowerPoint -->
+    <div class="cover-stage" data-pptx="raster" data-pptx-flatten="FCFCFC">
+      <div class="cover-backdrop">
+        <img src="assets/images/home-terrace-background.jpg" alt="">
+        <div class="veil"></div>
+      </div>
+      <div class="cover-products">
+        <span class="shadow"></span>
+        <img src="assets/images/Product-Photos-2.png" alt="Blis Farms products: TruOlive olive oil, fig jam, salts, black garlic and honey">
+      </div>
+    </div>
+    <img class="cover-logo" src="assets/images/blis-farms-logo.svg" alt="Blis Farms logo">
   </div>
 
-  <div class="cover-mosaic" data-bleed>
-    <img class="m-a" src="assets/images/rocky-olive-trees.jpg" alt="Olive trees in the Achaia Peloponnese">
-    <img class="m-b" src="assets/images/mountain-morning.jpg" alt="Farm landscape at sunrise">
-    <div class="cover-tile">
-      {{icon key-2}}
-      <span class="tile-head">Food with a story.</span>
-      <span class="tile-body">Organic and artisan foods from family farms in Greece, Italy, France and Florida.</span>
-    </div>
-    <img class="m-d" src="assets/images/yoghurt-and-figs.jpg" alt="Yogurt with figs and nuts">
-    <img class="m-e" src="assets/images/green-field-drone.jpg" alt="Aerial view of a green farm field">
+  <div class="cover-words">
+    <span class="cover-eyebrow">Buying and Merchandising Operations Research Event<span class="line"></span></span>
+    <h1 class="cover-title">{{projectTitle}}</h1>
+    <div class="cover-rule"></div>
+    <p class="cover-subtitle">{{subtitle}}</p>
   </div>
 
   <footer class="cover-meta">
     <div class="meta-item">
-      <span class="meta-label">{{icon key-1}}Prepared for</span>
+      <span class="meta-label">Prepared for</span>
       <span class="meta-value">{{preparedFor}}</span>
     </div>
     <div class="meta-item">
-      <span class="meta-label">{{icon key-2}}Prepared by</span>
+      <span class="meta-label">Prepared by</span>
       <span class="meta-value">{{participants}}</span>
     </div>
     <div class="meta-item">
-      <span class="meta-label">{{icon key-3}}School</span>
+      <span class="meta-label">School</span>
       <span class="meta-value">{{school}}<br>{{address}}<br>{{cityStateZip}}</span>
     </div>
     <div class="meta-item">
-      <span class="meta-label">{{icon key-1}}Date</span>
+      <span class="meta-label">Date</span>
       <span class="meta-value">{{date}}</span>
-    </div>
-    <div class="cover-sign">
-      <span>Boca Raton, Florida</span>
-      <span>blisfarms.com</span>
     </div>
   </footer>
 </section>

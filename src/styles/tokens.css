@@ -1,24 +1,36 @@
 /* =====================================================================
    DESIGN TOKENS: the ONLY place colors, fonts and spacing are defined.
-   Palette and type are taken from blisfarms.com: warm gold on white and
-   stone, charcoal text, one geometric sans (Greycliff on the site;
-   Urbanist is the closest Google Font, so Canva has it).
+   Taken from the NEW Blis Farms theme (Praximations/blis, assets/blis-base.css
+   and the bundle's color scale). Change a value here and every page
+   (PDF + PowerPoint) follows.
    ===================================================================== */
 :root {
-  /* Brand colors (sampled from blisfarms.com) */
-  --color-ink:        #2A2A2A;   /* charcoal: headlines + body text      */
-  --color-ink-soft:   #5C5852;   /* secondary text                       */
-  --color-muted:      #8E877C;   /* captions, labels                     */
-  --color-gold:       #BA9561;   /* Blis gold: buttons, tiles, icons     */
-  --color-gold-deep:  #9C6C28;   /* bronze: small gold text on white     */
-  --color-gold-light: #DBBA87;   /* light gold                           */
-  --color-gold-wash:  #F4EDE2;   /* very light gold tint for callouts    */
-  --color-on-dark:    #FFFFFF;   /* text on gold / charcoal surfaces     */
-  --color-on-dark-soft: #F1E7D8; /* secondary text on gold / charcoal    */
-  --color-surface:    #FFFFFF;   /* page background                      */
-  --color-surface-2:  #F3F2EE;   /* stone panel (site section bg)        */
-  --color-surface-3:  #EEECE8;   /* deeper stone                         */
-  --color-line:       #E3DFD7;   /* dividers, table rules                */
+  /* Palette (theme names in brackets) */
+  --color-ink:        #2A2A2A;   /* [ink-900] headlines, strong text       */
+  --color-ink-soft:   #4F4F4F;   /* [text-soft] body text and intros       */
+  --color-text-warm:  #5B5147;   /* [text-warm] warm captions              */
+  --color-muted:      #9F9783;   /* [ink-600] quiet labels, footers        */
+  --color-gold:       #BA9561;   /* [gold-500] rules, icons, tiles         */
+  --color-gold-deep:  #9C6C28;   /* [gold-700] small gold text (eyebrows)  */
+  --color-gold-dark:  #7C4E0E;   /* [gold-900]                             */
+  --color-gold-light: #DBBA87;   /* [gold-300]                             */
+  --color-gold-wash:  #F2E7D6;   /* [gold-100] soft gold fill              */
+  --color-on-dark:    #FFFFFF;
+  --color-on-dark-soft: #F6EEE2;
+  --color-surface:    #FFFFFF;   /* page                                   */
+  --color-paper:      #FCF9F3;   /* [field-paper] warm paper panels        */
+  --color-parchment:  #FBF7EE;   /* [parchment-paper]                      */
+  --color-surface-2:  #F3F2EE;   /* [linen-100]                            */
+  --color-surface-3:  #EEECE8;   /* [linen-300]                            */
+  --color-line:       #E7E2D8;   /* hairlines on paper                     */
+  --color-line-gold:  #C7B8A0;   /* [field-line]                           */
+
+  /* The shop's section tones: a soft paper and a deeper accent each */
+  --tone-wheat-paper: #F8F0E2;  --tone-wheat-deep: #946C3A;
+  --tone-olive-paper: #F0F1E3;  --tone-olive-deep: #626E3B;
+  --tone-clay-paper:  #F7ECE5;  --tone-clay-deep:  #985A43;
+  --tone-sage-paper:  #EDF1EA;  --tone-sage-deep:  #5C775A;
+  --tone-cream-paper: #F1F3EF;  --tone-cream-deep: #587485;
 
   /* Aliases used by components */
   --color-primary:    var(--color-gold);
@@ -28,24 +40,31 @@
   /* Chart palette, in order of use */
   --chart-1: #BA9561;
   --chart-2: #2A2A2A;
-  --chart-3: #DBBA87;
-  --chart-4: #9C6C28;
-  --chart-5: #B9B3A8;
-  --chart-6: #EEE3D0;
+  --chart-3: #626E3B;
+  --chart-4: #DBBA87;
+  --chart-5: #985A43;
+  --chart-6: #9F9783;
 
-  /* Typography: Google Fonts only, so Canva has them after PPTX import */
-  --font-display: "Urbanist", Arial, sans-serif;
-  --font-body:    "Urbanist", Arial, sans-serif;
+  /* Typography: the theme's three families, all Google Fonts (Canva has them) */
+  --font-display: "EB Garamond", Georgia, serif;     /* titles  [font-serif] */
+  --font-body:    "Google Sans", Arial, sans-serif;  /* text    [font-text]  */
+  --font-hand:    "Caveat", cursive;                 /* notes   [font-hand]  */
 
-  --size-title:   34pt;   /* section titles (I., II., ...) */
-  --size-h2:      15pt;   /* subsection titles (A., B., ...) */
-  --size-h3:      11.5pt;
-  --size-body:    10.5pt;
+  --size-title:   36pt;   /* section titles (I., II., ...) */
+  --size-h2:      17pt;   /* subsection titles (A., B., ...) */
+  --size-h3:      12pt;
+  --size-body:    10pt;
   --size-small:   8.5pt;
   --size-caption: 7.5pt;
-  --leading-body: 1.5;
-  --weight-body:  500;    /* Urbanist reads light in print at 400 */
-  --tracking-label: 0.16em;
+  --leading-body: 1.6;
+  --weight-body:  400;
+  --tracking-label: 0.24em;
+
+  /* Corners and shadows [radius-*, shadow-soft] */
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 14px;
+  --shadow-soft: 0 8px 22px -14px rgba(42, 42, 42, 0.22);
 
   /* Page geometry (8.5 x 11 in, required by DECA) */
   --page-w: 8.5in;
@@ -54,5 +73,4 @@
   --margin-top: 0.65in;
   --margin-bottom: 0.75in;
   --gap: 0.25in;
-  --radius: 0px;          /* the site uses square corners throughout */
 }

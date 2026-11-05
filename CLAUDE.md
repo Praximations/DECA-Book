@@ -11,13 +11,18 @@ A DECA Business Operations Research written entry (2026–27 topic: customer loy
 - The PDF must stay under 50 MB.
 - Run `npm run all` after changes. It must end with "No penalty risks found" and no overflow warnings.
 
-## Brand (matches blisfarms.com)
-- Gold `#BA9561` on white and stone `#F3F2EE`, charcoal `#2A2A2A` text, square corners, a lot of photography.
-- One typeface: Urbanist, the closest Google Font to the site's Greycliff.
-- Motifs from the site: small gold Greek-key icons (`{{icon key-1}}`, `key-2` and `key-3` from `src/icons/`), a short gold rule
-  under headlines (`<div class="dash"></div>`), and small, letterspaced, uppercase gold labels.
-- Photos and logo come from blisfarms.com (`src/assets/images/raw/`). Confirm with Blis before publishing any of them.
-- Last year's Canva book is the content reference only, not the visual one. Its title page left out the required school and participant information.
+## Brand: the NEW Blis Farms theme (repo Praximations/blis, VIEW ONLY: never change it)
+- The design source is the new theme in `/home/user/blis`, not the live blisfarms.com. Read its
+  `assets/blis-*.css` and `sections/*.liquid` for reference. Never edit, commit or run code in that repo.
+- Type: EB Garamond (titles, weight 400, plus small letterspaced caps for eyebrows), Google Sans (text),
+  Caveat (handwritten photo notes). All three are Google Fonts.
+- Colors: gold `#BA9561`, gold-deep `#9C6C28` for small gold text, charcoal `#2A2A2A`, soft text `#4F4F4F`,
+  warm paper `#FCF9F3`, linen `#F3F2EE`, and the shop's section tones (wheat, olive, clay, sage, cream).
+- Motifs: a 30px gold hairline under titles; eyebrows followed by a 36px gold line; photos that fade into paper;
+  arched photo windows with a white disc; soft rounded corners (10px); white paper texture.
+- Photos: the user has given permission to use Blis photos. Copy them from `/home/user/blis/assets/` into
+  `src/assets/images/raw/`. Where no photo fits, use a labelled placeholder.
+- The title page follows the theme's homepage hero in its portrait layout (`src/styles/cover.css`).
 
 ## Conventions
 - Change colors, fonts and spacing only in `src/styles/tokens.css`. Don't hard-code hex values in pages.

@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/Praximations/DECA-Book#readme",
   "dependencies": {
-    "@fontsource/urbanist": "^5.3.0",
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/eb-garamond": "^5.3.0",
+    "@fontsource/google-sans": "^5.3.2",
     "pptxgenjs": "^4.0.1",
     "sharp": "^0.35.5"
   },

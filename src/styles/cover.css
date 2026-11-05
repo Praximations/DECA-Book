@@ -1,70 +1,111 @@
-/* Title page, styled after the blisfarms.com home page:
-   logo + nav-style label, big quiet headline with a short gold rule,
-   an edge-to-edge photo grid with one gold text tile, and a stone panel. */
+/* Title page, built like the new Blis homepage hero (Praximations/blis,
+   blis-home.css "Homepage hero", portrait layout): the terrace photo forms a
+   band with the products standing on the stone ledge, it fades into the
+   paper, and the words sit below. Then the facts DECA requires. */
 .page.cover { padding: 0; gap: 0; background: var(--color-surface); }
 
-.cover-top {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  padding: 0.55in var(--margin-x) 0;
+/* The hero's faint white paper texture behind the whole page */
+.cover-paper {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(rgb(255 255 255 / .9), rgb(255 255 255 / .9)),
+    url("../assets/images/home-hero-paper.jpg") repeat left top;
+  background-size: 100% 100%, 5in auto;
 }
-.cover-logo { height: 0.95in; width: auto; display: block; }
-.cover-event {
-  display: flex; gap: 9px; align-items: flex-start;
-  margin-top: 4px;
-  font-size: 7.5pt; font-weight: 700; line-height: 1.75;
-  letter-spacing: var(--tracking-label); text-transform: uppercase;
-  color: var(--color-gold-deep); text-align: right;
-}
-.cover-event .icon { margin-top: 3px; }
 
-.cover-hero { padding: 0.55in var(--margin-x) 0; display: flex; flex-direction: column; gap: 16px; }
-.cover-hero .icon { width: 13px; height: 13px; }
+/* Photo band ------------------------------------------------------------ */
+.cover-scene {
+  --hero-fx: .86;        /* where the photo is cropped, as on the site's portrait layout */
+  --hero-scale: 1.12;
+  position: relative; z-index: 1;
+  height: 6.05in;
+  flex: none;
+}
+.cover-stage { position: absolute; inset: 0; container-type: size; overflow: hidden; }
+.cover-backdrop {
+  position: absolute; inset: 0;
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 74%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0, #000 74%, transparent 100%);
+}
+.cover-backdrop img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: calc(var(--hero-fx) * 100%) 100%;
+}
+/* white veil at the top so the logo reads, like the site's navbar veil */
+.cover-backdrop .veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgb(255 255 255 / .82), rgb(255 255 255 / .55) 1.75in, transparent 3in);
+}
+/* Products placed in the photo's own coordinates (photo is 1942 x 809) */
+.cover-products {
+  --s: max(100cqh / 809, 100cqw / 1942);
+  --ix: calc((100cqw - var(--s) * 1942) * var(--hero-fx));
+  --ph: calc(var(--s) * 291 * var(--hero-scale));
+  --pw: calc(var(--ph) * 1.16);
+  --cx: calc(var(--ix) + var(--s) * 1540);
+  --cx-min: calc(var(--ix) + var(--s) * 1290 + var(--pw) / 2);
+  --cx-max: calc(100cqw - var(--pw) / 2 - 24px);
+  position: absolute;
+  left: calc(min(max(var(--cx), var(--cx-min)), var(--cx-max)) - var(--pw) / 2);
+  bottom: calc(var(--s) * 173);
+  width: var(--pw); height: var(--ph);
+}
+.cover-products img { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+.cover-products .shadow {
+  position: absolute; z-index: 0; left: 3%; right: 0; bottom: 2%; height: 5%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(42 42 42 / .36), rgb(42 42 42 / .14) 58%, transparent);
+  filter: blur(2px);
+}
+
+.cover-logo { position: absolute; z-index: 2; top: 0.5in; left: var(--margin-x); height: 0.95in; width: auto; }
+.cover-date {
+  position: absolute; z-index: 2; top: 0.62in; right: var(--margin-x);
+  font-family: var(--font-display); font-size: 9pt; font-weight: 500;
+  letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-gold-deep);
+}
+/* Handwritten note on the photo, as on the site's About page */
+.cover-note {
+  position: absolute; z-index: 2; left: var(--margin-x); bottom: 1.6in;
+  font-family: var(--font-hand); font-size: 17pt; line-height: 1.05;
+  color: var(--color-on-dark);
+  text-shadow: 0 1px 6px rgb(0 0 0 / .25);
+}
+
+/* Words ----------------------------------------------------------------- */
+.cover-words {
+  position: relative; z-index: 1;
+  padding: 0.05in var(--margin-x) 0;
+  display: flex; flex-direction: column;
+}
+.cover-eyebrow {
+  display: flex; align-items: center; gap: 16px;
+  font-family: var(--font-display); font-size: 9pt; font-weight: 500; line-height: 1.5;
+  letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-gold-deep);
+}
+.cover-eyebrow .line { width: 36px; height: 1px; background: var(--color-gold); flex: none; }
 .cover-title {
-  font-family: var(--font-display);
-  font-size: 60pt; font-weight: 500; line-height: 1; letter-spacing: -0.015em;
-  color: var(--color-ink);
+  margin-top: 10px;
+  font-family: var(--font-display); font-size: 66pt; font-weight: 400;
+  line-height: 1; letter-spacing: -0.012em; color: var(--color-ink);
 }
-.cover-subtitle { font-size: 13pt; line-height: 1.5; color: var(--color-ink-soft); max-width: 4.45in; font-weight: 500; }
+.cover-rule { width: 30px; height: 1px; background: var(--color-gold); margin: 20px 0 16px; }
+.cover-subtitle {
+  max-width: 4.65in;
+  font-size: 12.5pt; line-height: 1.6; color: var(--color-ink-soft);
+}
 
-/* Edge-to-edge photo grid (data-bleed: allowed past the margins) */
-.cover-mosaic {
-  margin-top: 0.5in;
-  display: grid;
-  /* whole-pixel tracks (320 + 248 + 248 = 816 px page width) so no hairline seams appear */
-  grid-template-columns: 320px 248px 248px;
-  grid-template-rows: 206px 206px;
-}
-.cover-mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.cover-mosaic .m-a { grid-column: 1; grid-row: 1 / span 2; }
-.cover-tile {
-  background: var(--color-gold); color: var(--color-on-dark);
-  padding: 0.24in 0.22in;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.cover-tile .icon { color: var(--color-on-dark); }
-.cover-tile .tile-head { font-family: var(--font-display); font-size: 17pt; font-weight: 500; line-height: 1.15; margin-top: auto; }
-.cover-tile .tile-body { font-size: 8.5pt; line-height: 1.5; color: var(--color-on-dark-soft); }
-
-/* Stone panel with the facts DECA requires on the title page */
+/* The facts DECA requires on the title page ------------------------------ */
 .cover-meta {
-  flex: 1;
-  background: var(--color-surface-2);
-  padding: 0.4in var(--margin-x) 0.45in;
-  display: grid; grid-template-columns: 1.05fr 1fr 1.2fr 0.8fr; column-gap: 0.25in;
-  grid-template-rows: auto 1fr auto;
+  position: relative; z-index: 1;
+  margin: auto var(--margin-x) 0.55in;
+  padding-top: 0.22in;
+  border-top: 1px solid var(--color-line-gold);
+  display: grid; grid-template-columns: 1.15fr 1fr 1.2fr 0.85fr; column-gap: 0.22in;
 }
-.cover-sign {
-  grid-column: 1 / -1; grid-row: 3;
-  display: flex; justify-content: space-between; align-items: center;
-  margin-top: 0.22in; padding-top: 12px; border-top: 1px solid var(--color-line);
-  font-size: 7pt; font-weight: 600; letter-spacing: var(--tracking-label);
-  text-transform: uppercase; color: var(--color-muted);
-}
-.meta-item { display: flex; flex-direction: column; gap: 8px; }
+.meta-item { display: flex; flex-direction: column; gap: 7px; }
 .meta-label {
-  display: flex; gap: 7px; align-items: center;
-  font-size: 7pt; font-weight: 700; letter-spacing: var(--tracking-label);
-  text-transform: uppercase; color: var(--color-gold-deep);
+  font-family: var(--font-display); font-size: 8pt; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-gold-deep);
 }
-.meta-label .icon { width: 9px; height: 9px; }
-.meta-value { font-size: 9.5pt; line-height: 1.55; color: var(--color-ink); }
+.meta-value { font-size: 9pt; line-height: 1.6; color: var(--color-ink); }

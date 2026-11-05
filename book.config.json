@@ -1,7 +1,7 @@
 {
   "event": "BUYING AND MERCHANDISING OPERATIONS RESEARCH EVENT",
   "projectTitle": "Rooted in Return",
-  "subtitle": "A strategic plan to strengthen customer loyalty and repeat engagement at Blis Farms",
+  "subtitle": "A strategic plan to strengthen customer loyalty<br>and repeat engagement at Blis Farms",
   "business": "Blis Farms",
   "school": "High School Name",
   "address": "School Address",
@@ -28,20 +28,38 @@
   ],
   "fonts": [
     {
-      "family": "Urbanist",
-      "package": "urbanist",
+      "family": "EB Garamond",
+      "package": "eb-garamond",
       "weights": [
-        300,
+        400,
+        500,
+        600
+      ],
+      "italicWeights": [
+        400
+      ]
+    },
+    {
+      "family": "Google Sans",
+      "package": "google-sans",
+      "weights": [
         400,
         500,
         600,
-        700,
-        800
+        700
       ],
       "italicWeights": [
+        400
+      ]
+    },
+    {
+      "family": "Caveat",
+      "package": "caveat",
+      "weights": [
         400,
         500
-      ]
+      ],
+      "italicWeights": []
     }
   ],
   "preparedFor": "Daniel Lembessis<br>Founder &amp; CEO, Blis Farms",

@@ -152,7 +152,7 @@ const slides = await page.evaluate(() => {
 
       if (mode === 'raster' || tag === 'svg' || tag === 'canvas' || tag === 'video') {
         el.dataset.rid = ++rid;
-        items.push({ type: 'raster', rid, ...rel(r), pad: tag === 'svg' ? 8 : 0, name: `${tag}${el.classList[0] ? '.' + el.classList[0] : ''}` });
+        items.push({ type: 'raster', rid, ...rel(r), pad: tag === 'svg' ? 8 : 0, flatten: el.dataset.pptxFlatten || null, name: `${tag}${el.classList[0] ? '.' + el.classList[0] : ''}` });
         return;
       }
       if (tag === 'img') {
@@ -264,6 +264,12 @@ for (const r of rasters) {
   const clip = { x: box.x - r.pad, y: box.y - r.pad, width: box.width + r.pad * 2, height: box.height + r.pad * 2 };
   r.file = path.join(ASSETS, `raster-${r.rid}.png`);
   await page.screenshot({ path: r.file, clip, fullPage: true, omitBackground: true });
+  // data-pptx-flatten="FFFFFF": big photo-like rasters become a JPEG on that colour (much smaller)
+  if (r.flatten) {
+    const jpg = r.file.replace(/\.png$/, '.jpg');
+    await sharp(r.file).flatten({ background: '#' + r.flatten }).jpeg({ quality: 88, mozjpeg: true }).toFile(jpg);
+    fs.rmSync(r.file); r.file = jpg;
+  }
   r.x -= r.pad; r.y -= r.pad; r.w += r.pad * 2; r.h += r.pad * 2;
   await page.evaluate((sel) => {
     document.documentElement.classList.remove('pptx-capture');
