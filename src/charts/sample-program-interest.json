@@ -1,0 +1,4 @@
+{ "type": "donut", "title": "Interest in a loyalty program", "unit": "%",
+  "labels": ["Very interested", "Somewhat", "Neutral", "Not interested"],
+  "series": [{ "name": "Interest", "values": [44, 31, 15, 10] }],
+  "center": { "value": "75%", "label": "interested" } }

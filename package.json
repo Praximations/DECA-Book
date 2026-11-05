@@ -1,0 +1,29 @@
+{
+  "name": "deca-book",
+  "version": "0.1.0",
+  "description": "DECA Business Operations Research written entry, built page by page in HTML/CSS and exported to PDF + editable PowerPoint",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "pdf": "node scripts/build.mjs && node scripts/export-pdf.mjs",
+    "pptx": "node scripts/build.mjs && node scripts/export-pptx.mjs",
+    "preview": "node scripts/preview.mjs",
+    "check": "node scripts/check.mjs",
+    "all": "node scripts/build.mjs && node scripts/export-pdf.mjs && node scripts/export-pptx.mjs && node scripts/preview.mjs && node scripts/check.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Praximations/DECA-Book.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Praximations/DECA-Book/issues"
+  },
+  "homepage": "https://github.com/Praximations/DECA-Book#readme",
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/plus-jakarta-sans": "^5.3.0",
+    "pptxgenjs": "^4.0.1",
+    "sharp": "^0.35.5"
+  },
+  "private": true,
+  "type": "module"
+}

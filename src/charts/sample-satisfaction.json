@@ -1,0 +1,8 @@
+{ "type": "stacked", "title": "Satisfaction by customer segment",
+  "labels": ["New customers", "Occasional", "Regulars"],
+  "series": [
+    { "name": "Very satisfied", "values": [32, 45, 71] },
+    { "name": "Satisfied", "values": [41, 38, 22] },
+    { "name": "Neutral", "values": [19, 12, 5] },
+    { "name": "Dissatisfied", "values": [8, 5, 2] }
+  ] }

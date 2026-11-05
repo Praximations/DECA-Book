@@ -1,0 +1,4 @@
+{ "type": "hbar", "title": "What brings customers back", "unit": "%",
+  "labels": ["Personal recognition", "Quality of service", "Rewards / discounts", "Convenience", "Community feel"],
+  "series": [{ "name": "Rated very important", "values": [68, 61, 47, 39, 33] }],
+  "highlight": 0, "max": 100, "caption": "Sample data" }

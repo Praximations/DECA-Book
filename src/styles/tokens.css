@@ -1,0 +1,46 @@
+/* =====================================================================
+   DESIGN TOKENS — the ONLY place colors, fonts and spacing are defined.
+   When the BLIS website design arrives, swap the values here and every
+   page (PDF + PowerPoint) updates. Placeholder palette for now.
+   ===================================================================== */
+:root {
+  /* Brand colors (placeholder until the BLIS design is provided) */
+  --color-ink:        #14213D;   /* primary text / dark surfaces      */
+  --color-ink-soft:   #4A5468;   /* secondary text                    */
+  --color-muted:      #8A93A6;   /* captions, labels                  */
+  --color-primary:    #1F4FFF;   /* brand primary                     */
+  --color-primary-2:  #6C8CFF;   /* lighter brand tint                */
+  --color-accent:     #FF8A3D;   /* sharp accent — use sparingly      */
+  --color-surface:    #FFFFFF;   /* page background                   */
+  --color-surface-2:  #F3F5FA;   /* card / panel background           */
+  --color-line:       #DDE2EC;   /* dividers, table rules             */
+
+  /* Chart palette, in order of use */
+  --chart-1: #1F4FFF;
+  --chart-2: #6C8CFF;
+  --chart-3: #FF8A3D;
+  --chart-4: #14213D;
+  --chart-5: #B8C6FF;
+  --chart-6: #8A93A6;
+
+  /* Typography — use Google Fonts so Canva has them after PPTX import */
+  --font-display: "Plus Jakarta Sans", "Inter", Arial, sans-serif;
+  --font-body:    "Inter", Arial, sans-serif;
+
+  --size-title:   34pt;   /* section titles (I., II., ...) */
+  --size-h2:      15pt;   /* subsection titles (A., B., ...) */
+  --size-h3:      11.5pt;
+  --size-body:    10pt;
+  --size-small:   8.5pt;
+  --size-caption: 7.5pt;
+  --leading-body: 1.5;
+
+  /* Page geometry (8.5 x 11 in, required by DECA) */
+  --page-w: 8.5in;
+  --page-h: 11in;
+  --margin-x: 0.7in;
+  --margin-top: 0.65in;
+  --margin-bottom: 0.75in;
+  --gap: 0.25in;
+  --radius: 10px;
+}

@@ -1,0 +1,4 @@
+{ "type": "bar", "title": "How often customers visit", "unit": "%",
+  "labels": ["Weekly", "Monthly", "Quarterly", "Yearly"],
+  "series": [{ "name": "Share of respondents", "values": [18, 41, 27, 14] }],
+  "highlight": 1, "caption": "Sample data, n = 312" }

@@ -1,0 +1,62 @@
+/* Page frame + typography. Layout details live in components.css. */
+@import url("fonts.css");
+@import url("tokens.css");
+
+@page { size: 8.5in 11in; margin: 0; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: #9aa0ab; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  color: var(--color-ink);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  position: relative;
+  width: var(--page-w);
+  height: var(--page-h);
+  overflow: hidden;
+  background: var(--color-surface);
+  padding: var(--margin-top) var(--margin-x) var(--margin-bottom);
+  margin: 0.3in auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  page-break-after: always;
+  break-after: page;
+}
+@media print {
+  html, body { background: none; }
+  .page { margin: 0; }
+}
+
+/* Typography */
+h1, h2, h3, .display { font-family: var(--font-display); line-height: 1.15; }
+h1 { font-size: var(--size-title); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: var(--size-h2); font-weight: 700; color: var(--color-ink); }
+h3 { font-size: var(--size-h3); font-weight: 700; }
+p  { text-align: left; }
+p + p { margin-top: 0.6em; }
+strong, b { font-weight: 700; }
+em { font-style: italic; }
+.small { font-size: var(--size-small); }
+.caption { font-size: var(--size-caption); color: var(--color-muted); }
+.muted { color: var(--color-ink-soft); }
+
+ul.list { padding-left: 1.2em; }
+ul.list li + li { margin-top: 0.3em; }
+
+/* Page footer (page number injected by runtime.js on body pages) */
+.page-footer {
+  position: absolute;
+  left: var(--margin-x); right: var(--margin-x); bottom: 0.35in;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: var(--size-caption);
+  color: var(--color-muted);
+}
+.page-footer .page-number { font-weight: 700; color: var(--color-ink); }
