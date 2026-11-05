@@ -9,7 +9,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-gold-deep);
 }
 
 /* Layout helpers */
@@ -28,10 +28,16 @@
   padding: 14px 16px;
   display: flex; flex-direction: column; gap: 6px;
 }
-.card.dark { background: var(--color-ink); color: #fff; }
-.card.dark .muted { color: #C9D0DE; }
-.card.brand { background: var(--color-primary); color: #fff; }
+.card.dark { background: var(--color-ink); color: var(--color-on-dark); }
+.card.dark .muted { color: var(--color-on-dark-soft); }
+.card.brand { background: var(--color-primary); color: var(--color-on-dark); }
 .card h3 { font-size: var(--size-h3); }
+
+/* Greek-key icon (inline SVG from src/icons, colored with currentColor) */
+.icon { width: 11px; height: 11px; color: var(--color-gold); flex: none; display: block; }
+
+/* Short gold rule used under headlines on blisfarms.com */
+.dash { width: 0.42in; height: 1.5px; background: var(--color-gold); flex: none; }
 
 /* Big number stat */
 .stat { display: flex; flex-direction: column; gap: 2px; }
@@ -40,20 +46,20 @@
   font-size: 30pt; font-weight: 800; line-height: 1;
   color: var(--color-primary); letter-spacing: -0.02em;
 }
-.card.dark .stat .value, .card.brand .stat .value { color: #fff; }
+.card.dark .stat .value, .card.brand .stat .value { color: var(--color-on-dark); }
 .stat .label { font-size: var(--size-small); color: var(--color-ink-soft); line-height: 1.35; }
-.card.dark .stat .label, .card.brand .stat .label { color: #DDE4F5; }
+.card.dark .stat .label, .card.brand .stat .label { color: var(--color-on-dark-soft); }
 
 /* Callout / key insight */
 .callout {
-  background: #EAF0FF;
+  background: var(--color-gold-wash);
   border-radius: var(--radius);
   padding: 12px 16px;
   display: flex; gap: 12px; align-items: flex-start;
 }
 .callout .tag {
   flex: none;
-  background: var(--color-primary); color: #fff;
+  background: var(--color-primary); color: var(--color-on-dark);
   font-size: var(--size-caption); font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase;
   border-radius: 999px; padding: 3px 9px;
@@ -62,7 +68,7 @@
 /* Tables */
 table.data { width: 100%; border-collapse: collapse; font-size: var(--size-small); }
 table.data th {
-  text-align: left; font-weight: 700; color: #fff;
+  text-align: left; font-weight: 700; color: var(--color-on-dark);
   background: var(--color-ink); padding: 6px 8px;
 }
 table.data td { padding: 6px 8px; border-bottom: 1px solid var(--color-line); }
@@ -78,14 +84,7 @@ figure.chart figcaption { font-size: var(--size-caption); color: var(--color-mut
 /* Images */
 .photo { width: 100%; object-fit: cover; border-radius: var(--radius); display: block; }
 
-/* Title page */
-.page.cover { padding: 0; background: var(--color-ink); color: #fff; }
-.cover-inner { padding: 0.9in var(--margin-x); display: flex; flex-direction: column; gap: 18px; height: 100%; }
-.cover .event { font-size: var(--size-small); font-weight: 700; letter-spacing: 0.14em; color: var(--color-primary-2); }
-.cover h1 { font-size: 44pt; color: #fff; }
-.cover .subtitle { font-size: 14pt; color: #C9D0DE; }
-.cover .meta { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; font-size: var(--size-body); }
-.cover .meta .label { font-size: var(--size-caption); letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-primary-2); font-weight: 700; }
+/* Title page: see cover.css */
 
 /* Table of contents */
 .toc { display: flex; flex-direction: column; }

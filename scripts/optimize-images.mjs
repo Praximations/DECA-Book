@@ -14,6 +14,11 @@ export async function optimizeImages() {
   fs.mkdirSync(OUT, { recursive: true });
   const files = fs.readdirSync(RAW).filter((f) => /\.(jpe?g|png|webp|heic|tiff?)$/i.test(f));
   let done = 0;
+  // Vector files (logos) are copied untouched: they stay sharp at any size
+  for (const f of fs.readdirSync(RAW).filter((f) => /\.svg$/i.test(f))) {
+    const dst = path.join(OUT, f);
+    if (!fs.existsSync(dst) || fs.statSync(dst).mtimeMs < fs.statSync(path.join(RAW, f)).mtimeMs) { fs.copyFileSync(path.join(RAW, f), dst); done++; }
+  }
   for (const f of files) {
     const src = path.join(RAW, f);
     const img = sharp(src).rotate();

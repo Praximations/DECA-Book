@@ -156,7 +156,7 @@ const slides = await page.evaluate(() => {
         return;
       }
       if (tag === 'img') {
-        if (px(cs.borderTopLeftRadius) > 0) {
+        if (px(cs.borderTopLeftRadius) > 0 || /\.svg(\?|$)/i.test(el.currentSrc)) {
           el.dataset.rid = ++rid;
           items.push({ type: 'raster', rid, ...rel(r), pad: 0, name: 'img' });
         } else {
@@ -181,9 +181,17 @@ const slides = await page.evaluate(() => {
         const bx = rel(r);
         const pl = px(cs.paddingLeft) + px(cs.borderLeftWidth), pr = px(cs.paddingRight) + px(cs.borderRightWidth);
         const pt = px(cs.paddingTop) + px(cs.borderTopWidth), pb = px(cs.paddingBottom) + px(cs.borderBottomWidth);
-        // Tight vertical bounds of the rendered text
-        const range = document.createRange(); range.selectNodeContents(el);
-        const rects = [...range.getClientRects()].filter((q) => q.width > 0 && q.height > 0);
+        // Tight bounds of the rendered text, measured on the text itself (not icons or other children)
+        const nodes = [];
+        const gather = (node) => node.childNodes.forEach((n) => {
+          if (n.nodeType === 3 && n.textContent.trim()) nodes.push(n);
+          else if (n.nodeType === 1 && n.tagName !== 'BR' && getComputedStyle(n).display === 'inline' && n.dataset.pptx !== 'skip') gather(n);
+        });
+        gather(el);
+        const range = document.createRange();
+        const rects = nodes.flatMap((n) => { range.selectNodeContents(n); return [...range.getClientRects()]; }).filter((q) => q.width > 0 && q.height > 0);
+        // Text sitting next to an icon or other element (e.g. a flex label): box hugs the text
+        const hasOther = [...el.children].some((c) => c.tagName !== 'BR' && (getComputedStyle(c).display !== 'inline' || ['svg', 'IMG'].includes(c.tagName)));
         const top = rects.length ? Math.min(...rects.map((q) => q.top)) - P.top : bx.y + pt;
         const lh = cs.lineHeight === 'normal' ? px(cs.fontSize) * 1.2 : px(cs.lineHeight);
         let align = cs.textAlign;
@@ -208,8 +216,13 @@ const slides = await page.evaluate(() => {
         const baselineShift = (fm.fontBoundingBoxAscent + fm.fontBoundingBoxDescent - lh) / 2;
         items.push({
           type: 'text',
-          x: bx.x + pl - (bullet ? bullet.offset : 0), y: top + baselineShift, shift: baselineShift, w: bx.w - pl - pr + (bullet ? bullet.offset : 0), h: Math.max(textH, lh),
-          contentY, contentH, runs, align, lineSpacing: lh * 0.75, singleLine: lines <= 1, bullet,
+          ...(hasOther && rects.length
+            ? { x: Math.min(...rects.map((q) => q.left)) - P.left, w: Math.max(...rects.map((q) => q.right)) - Math.min(...rects.map((q) => q.left)) }
+            : { x: bx.x + pl - (bullet ? bullet.offset : 0), w: bx.w - pl - pr + (bullet ? bullet.offset : 0) }),
+          y: top + baselineShift, shift: baselineShift, h: Math.max(textH, lh),
+          contentY, contentH, runs, align, lineSpacing: lh * 0.75, bullet,
+          // No wrapping when every line ends at an explicit <br> (or there is only one line)
+          singleLine: lines <= runs.filter((x) => x.br).length + 1,
           name: `${tag}${el.classList[0] ? '.' + el.classList[0] : ''}`,
         });
       }

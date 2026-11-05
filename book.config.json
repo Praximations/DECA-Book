@@ -1,8 +1,8 @@
 {
-  "event": "BUSINESS SERVICES OPERATIONS RESEARCH EVENT",
-  "projectTitle": "Project Title Goes Here",
-  "subtitle": "Strengthening Customer Loyalty and Repeat Engagement",
-  "business": "Business Name",
+  "event": "BUYING AND MERCHANDISING OPERATIONS RESEARCH EVENT",
+  "projectTitle": "Rooted in Return",
+  "subtitle": "A strategic plan to strengthen customer loyalty and repeat engagement at Blis Farms",
+  "business": "Blis Farms",
   "school": "High School Name",
   "address": "School Address",
   "cityStateZip": "City, State ZIP",
@@ -28,9 +28,10 @@
   ],
   "fonts": [
     {
-      "family": "Inter",
-      "package": "inter",
+      "family": "Urbanist",
+      "package": "urbanist",
       "weights": [
+        300,
         400,
         500,
         600,
@@ -39,19 +40,10 @@
       ],
       "italicWeights": [
         400,
-        700
+        500
       ]
-    },
-    {
-      "family": "Plus Jakarta Sans",
-      "package": "plus-jakarta-sans",
-      "weights": [
-        500,
-        600,
-        700,
-        800
-      ],
-      "italicWeights": []
     }
-  ]
+  ],
+  "preparedFor": "Daniel Lembessis<br>Founder &amp; CEO, Blis Farms",
+  "outputName": "Blis-Farms-DECA-Book"
 }

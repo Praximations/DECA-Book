@@ -11,6 +11,7 @@ body {
   font-family: var(--font-body);
   font-size: var(--size-body);
   line-height: var(--leading-body);
+  font-weight: var(--weight-body);
   color: var(--color-ink);
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
@@ -37,9 +38,9 @@ body {
 
 /* Typography */
 h1, h2, h3, .display { font-family: var(--font-display); line-height: 1.15; }
-h1 { font-size: var(--size-title); font-weight: 800; letter-spacing: -0.02em; }
-h2 { font-size: var(--size-h2); font-weight: 700; color: var(--color-ink); }
-h3 { font-size: var(--size-h3); font-weight: 700; }
+h1 { font-size: var(--size-title); font-weight: 600; letter-spacing: -0.01em; }
+h2 { font-size: var(--size-h2); font-weight: 600; color: var(--color-ink); }
+h3 { font-size: var(--size-h3); font-weight: 600; }
 p  { text-align: left; }
 p + p { margin-top: 0.6em; }
 strong, b { font-weight: 700; }

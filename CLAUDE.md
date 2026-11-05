@@ -11,6 +11,14 @@ A DECA Business Operations Research written entry (2026–27 topic: customer loy
 - The PDF must stay under 50 MB.
 - Run `npm run all` after changes. It must end with "No penalty risks found" and no overflow warnings.
 
+## Brand (matches blisfarms.com)
+- Gold `#BA9561` on white and stone `#F3F2EE`, charcoal `#2A2A2A` text, square corners, a lot of photography.
+- One typeface: Urbanist, the closest Google Font to the site's Greycliff.
+- Motifs from the site: small gold Greek-key icons (`{{icon key-1}}`, `key-2` and `key-3` from `src/icons/`), a short gold rule
+  under headlines (`<div class="dash"></div>`), and small, letterspaced, uppercase gold labels.
+- Photos and logo come from blisfarms.com (`src/assets/images/raw/`). Confirm with Blis before publishing any of them.
+- Last year's Canva book is the content reference only, not the visual one. Its title page left out the required school and participant information.
+
 ## Conventions
 - Change colors, fonts and spacing only in `src/styles/tokens.css`. Don't hard-code hex values in pages.
 - Each page is a `<section class="page body">` in its own file. Filenames set the order.
@@ -21,4 +29,5 @@ A DECA Business Operations Research written entry (2026–27 topic: customer loy
 - PowerPoint export: don't draw visible decoration with `::before`/`::after`, because it can't be exported. Use real elements.
   Use `data-pptx="raster"` to flatten a complex element into an image, and `data-pptx="skip"` to omit one.
 - Fonts must be Google Fonts (Canva has them). Add them through `@fontsource/*` and the `fonts` list in `book.config.json`.
+- Inline an icon with `{{icon name}}`, which inserts `src/icons/name.svg`. Fill page text from `book.config.json` with `{{key}}`.
 - Visual QA: `npm run preview`, then look at `dist/preview/*.png`.

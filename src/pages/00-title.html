@@ -1,14 +1,53 @@
-<!-- TITLE PAGE (not numbered). Fields come from book.config.json -->
+<!-- TITLE PAGE (not numbered). Facts come from book.config.json.
+     DECA requires: event name, school name, school address, city/state/ZIP, participants, date. -->
 <section class="page cover">
-  <div class="cover-inner">
-    <div class="event">{{event}}</div>
-    <h1>{{projectTitle}}</h1>
-    <p class="subtitle">{{subtitle}}</p>
-    <div class="meta">
-      <div class="stack"><span class="label">Business</span><span>{{business}}</span></div>
-      <div class="stack"><span class="label">Participants</span><span>{{participants}}</span></div>
-      <div class="stack"><span class="label">School</span><span>{{school}}<br>{{address}}<br>{{cityStateZip}}</span></div>
-      <div class="stack"><span class="label">Date</span><span>{{date}}</span></div>
+  <header class="cover-top">
+    <img class="cover-logo" src="assets/images/blis-farms-logo.svg" alt="Blis Farms logo">
+    <div class="cover-event">
+      <span>Buying and Merchandising<br>Operations Research Event</span>
+      {{icon key-1}}
     </div>
+  </header>
+
+  <div class="cover-hero">
+    {{icon key-3}}
+    <h1 class="cover-title">{{projectTitle}}</h1>
+    <div class="dash"></div>
+    <p class="cover-subtitle">{{subtitle}}</p>
   </div>
+
+  <div class="cover-mosaic" data-bleed>
+    <img class="m-a" src="assets/images/rocky-olive-trees.jpg" alt="Olive trees in the Achaia Peloponnese">
+    <img class="m-b" src="assets/images/mountain-morning.jpg" alt="Farm landscape at sunrise">
+    <div class="cover-tile">
+      {{icon key-2}}
+      <span class="tile-head">Food with a story.</span>
+      <span class="tile-body">Organic and artisan foods from family farms in Greece, Italy, France and Florida.</span>
+    </div>
+    <img class="m-d" src="assets/images/yoghurt-and-figs.jpg" alt="Yogurt with figs and nuts">
+    <img class="m-e" src="assets/images/green-field-drone.jpg" alt="Aerial view of a green farm field">
+  </div>
+
+  <footer class="cover-meta">
+    <div class="meta-item">
+      <span class="meta-label">{{icon key-1}}Prepared for</span>
+      <span class="meta-value">{{preparedFor}}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">{{icon key-2}}Prepared by</span>
+      <span class="meta-value">{{participants}}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">{{icon key-3}}School</span>
+      <span class="meta-value">{{school}}<br>{{address}}<br>{{cityStateZip}}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">{{icon key-1}}Date</span>
+      <span class="meta-value">{{date}}</span>
+    </div>
+    <div class="cover-sign">
+      <span>Boca Raton, Florida</span>
+      <span>blisfarms.com</span>
+    </div>
+  </footer>
 </section>

@@ -1,39 +1,51 @@
 /* =====================================================================
-   DESIGN TOKENS — the ONLY place colors, fonts and spacing are defined.
-   When the BLIS website design arrives, swap the values here and every
-   page (PDF + PowerPoint) updates. Placeholder palette for now.
+   DESIGN TOKENS: the ONLY place colors, fonts and spacing are defined.
+   Palette and type are taken from blisfarms.com: warm gold on white and
+   stone, charcoal text, one geometric sans (Greycliff on the site;
+   Urbanist is the closest Google Font, so Canva has it).
    ===================================================================== */
 :root {
-  /* Brand colors (placeholder until the BLIS design is provided) */
-  --color-ink:        #14213D;   /* primary text / dark surfaces      */
-  --color-ink-soft:   #4A5468;   /* secondary text                    */
-  --color-muted:      #8A93A6;   /* captions, labels                  */
-  --color-primary:    #1F4FFF;   /* brand primary                     */
-  --color-primary-2:  #6C8CFF;   /* lighter brand tint                */
-  --color-accent:     #FF8A3D;   /* sharp accent — use sparingly      */
-  --color-surface:    #FFFFFF;   /* page background                   */
-  --color-surface-2:  #F3F5FA;   /* card / panel background           */
-  --color-line:       #DDE2EC;   /* dividers, table rules             */
+  /* Brand colors (sampled from blisfarms.com) */
+  --color-ink:        #2A2A2A;   /* charcoal: headlines + body text      */
+  --color-ink-soft:   #5C5852;   /* secondary text                       */
+  --color-muted:      #8E877C;   /* captions, labels                     */
+  --color-gold:       #BA9561;   /* Blis gold: buttons, tiles, icons     */
+  --color-gold-deep:  #9C6C28;   /* bronze: small gold text on white     */
+  --color-gold-light: #DBBA87;   /* light gold                           */
+  --color-gold-wash:  #F4EDE2;   /* very light gold tint for callouts    */
+  --color-on-dark:    #FFFFFF;   /* text on gold / charcoal surfaces     */
+  --color-on-dark-soft: #F1E7D8; /* secondary text on gold / charcoal    */
+  --color-surface:    #FFFFFF;   /* page background                      */
+  --color-surface-2:  #F3F2EE;   /* stone panel (site section bg)        */
+  --color-surface-3:  #EEECE8;   /* deeper stone                         */
+  --color-line:       #E3DFD7;   /* dividers, table rules                */
+
+  /* Aliases used by components */
+  --color-primary:    var(--color-gold);
+  --color-primary-2:  var(--color-gold-light);
+  --color-accent:     var(--color-gold-deep);
 
   /* Chart palette, in order of use */
-  --chart-1: #1F4FFF;
-  --chart-2: #6C8CFF;
-  --chart-3: #FF8A3D;
-  --chart-4: #14213D;
-  --chart-5: #B8C6FF;
-  --chart-6: #8A93A6;
+  --chart-1: #BA9561;
+  --chart-2: #2A2A2A;
+  --chart-3: #DBBA87;
+  --chart-4: #9C6C28;
+  --chart-5: #B9B3A8;
+  --chart-6: #EEE3D0;
 
-  /* Typography — use Google Fonts so Canva has them after PPTX import */
-  --font-display: "Plus Jakarta Sans", "Inter", Arial, sans-serif;
-  --font-body:    "Inter", Arial, sans-serif;
+  /* Typography: Google Fonts only, so Canva has them after PPTX import */
+  --font-display: "Urbanist", Arial, sans-serif;
+  --font-body:    "Urbanist", Arial, sans-serif;
 
   --size-title:   34pt;   /* section titles (I., II., ...) */
   --size-h2:      15pt;   /* subsection titles (A., B., ...) */
   --size-h3:      11.5pt;
-  --size-body:    10pt;
+  --size-body:    10.5pt;
   --size-small:   8.5pt;
   --size-caption: 7.5pt;
   --leading-body: 1.5;
+  --weight-body:  500;    /* Urbanist reads light in print at 400 */
+  --tracking-label: 0.16em;
 
   /* Page geometry (8.5 x 11 in, required by DECA) */
   --page-w: 8.5in;
@@ -42,5 +54,5 @@
   --margin-top: 0.65in;
   --margin-bottom: 0.75in;
   --gap: 0.25in;
-  --radius: 10px;
+  --radius: 0px;          /* the site uses square corners throughout */
 }

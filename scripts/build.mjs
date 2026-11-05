@@ -39,7 +39,13 @@ for (const f of fs.readdirSync(path.join(SRC, 'charts')).filter((f) => f.endsWit
 }
 
 // 5. Pages, in filename order. {{key}} is replaced with values from book.config.json
-const fill = (html) => html.replace(/\{\{\s*([\w.]+)\s*\}\}/g, (m, key) => {
+const ICONS = path.join(SRC, 'icons');
+const icon = (html) => html.replace(/\{\{\s*icon\s+([\w-]+)\s*\}\}/g, (m, name) => {
+  const f = path.join(ICONS, `${name}.svg`);
+  if (!fs.existsSync(f)) { console.warn(`⚠ unknown icon ${name}`); return ''; }
+  return fs.readFileSync(f, 'utf8').trim();
+});
+const fill = (html) => icon(html).replace(/\{\{\s*([\w.]+)\s*\}\}/g, (m, key) => {
   const v = key.split('.').reduce((o, k) => (o ?? {})[k], cfg);
   if (v === undefined) { console.warn(`⚠ unknown placeholder ${m}`); return m; }
   return Array.isArray(v) ? v.join('<br>') : v;
@@ -47,13 +53,16 @@ const fill = (html) => html.replace(/\{\{\s*([\w.]+)\s*\}\}/g, (m, key) => {
 const pageFiles = fs.readdirSync(path.join(SRC, 'pages')).filter((f) => f.endsWith('.html')).sort();
 const pages = pageFiles.map((f) => `<!-- ${f} -->\n` + fill(fs.readFileSync(path.join(SRC, 'pages', f), 'utf8').trim()));
 
+// base.css imports fonts + tokens; every other stylesheet in src/styles is linked after it
+const extraCss = fs.readdirSync(path.join(SRC, 'styles')).filter((f) => f.endsWith('.css') && !['base.css', 'tokens.css', 'fonts.css', 'components.css'].includes(f)).sort();
+const styleLinks = ['base.css', 'components.css', ...extraCss].map((f) => `<link rel="stylesheet" href="styles/${f}">`).join('\n');
+
 const html = `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>${cfg.projectTitle} — ${cfg.business}</title>
-<link rel="stylesheet" href="styles/base.css">
-<link rel="stylesheet" href="styles/components.css">
+${styleLinks}
 </head>
 <body>
 ${pages.join('\n\n')}

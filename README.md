@@ -4,8 +4,8 @@ The written entry is built from code: every page is an HTML file and every color
 
 | Output | What it's for |
 |---|---|
-| `dist/DECA-Book.pdf` | The final entry: 8.5 × 11 in pages, vector text, embedded fonts, under 50 MB |
-| `dist/DECA-Book.pptx` | An editable copy for Canva or PowerPoint, one 8.5 × 11 slide per page. Text boxes, shapes and photos stay native objects; charts come in as sharp, high-resolution images |
+| `dist/Blis-Farms-DECA-Book.pdf` | The final entry: 8.5 × 11 in pages, vector text, embedded fonts, under 50 MB |
+| `dist/Blis-Farms-DECA-Book.pptx` | An editable copy for Canva or PowerPoint, one 8.5 × 11 slide per page. Text boxes, shapes and photos stay native objects; charts come in as sharp, high-resolution images |
 | `dist/preview/*.png` | Quick page images for review |
 
 ## Commands
@@ -34,6 +34,8 @@ src/pages/                one file per page, in order:
    p01-…html … p20-…html    body pages 1–20 (numbered automatically)
 src/charts/*.json         chart data: edit numbers here and the chart redraws
 src/assets/images/raw/    drop original photos here (any size); build compresses them
+src/styles/cover.css      title page
+src/icons/*.svg           Greek-key icons from blisfarms.com, used as {{icon key-1}}
 src/js/runtime.js         page numbers, table of contents, chart drawing
 scripts/                  build + export + check tooling
 docs/                     page plan, visual ideas
@@ -54,8 +56,8 @@ docs/                     page plan, visual ideas
 
 ## Importing into Canva
 
-1. In Canva, choose **Create a design → Import file** and pick `dist/DECA-Book.pptx`.
-2. The fonts (Inter, Plus Jakarta Sans, or whatever `tokens.css` says) are Google Fonts that Canva already has.
+1. In Canva, choose **Create a design → Import file** and pick `dist/Blis-Farms-DECA-Book.pptx`.
+2. The font is Urbanist, a Google Font that Canva already has. PowerPoint only knows regular and bold, so medium-weight text (500) imports as regular. Set it back to Medium in Canva if you want it to match the PDF exactly.
 3. Text boxes are slightly wider than their text, so Canva's font rendering doesn't add new line breaks. Small spacing differences are normal; tidy them in Canva.
 4. Charts arrive as images. To change a number, edit `src/charts/*.json` and export again.
 
