@@ -1,13 +1,16 @@
 <!-- TITLE PAGE (not numbered): last year's cover layout, refined. Facts come from book.config.json.
      DECA requires: event name, school name, school address, city/state/ZIP, participants, date. -->
-<section class="page cover">
-  <img class="cv-corner cv-corner--tr" src="assets/images/about-coast.jpg" alt="Coastal village and sea framed by olive trees">
-  <div class="cv-band cv-band--tr"></div>
-  <div class="cv-fine cv-fine--tr"></div>
-
-  <img class="cv-corner cv-corner--bl" src="assets/images/aerial-view-of-greece.jpg" alt="Aerial view of the Greek coast">
-  <div class="cv-band cv-band--bl"></div>
-  <div class="cv-fine cv-fine--bl"></div>
+<section class="page front-page cover">
+  <div class="corner tr corner--tr" data-bleed>
+    <img src="assets/images/about-coast.jpg" alt="Coastal village and sea framed by olive trees">
+    <div class="band"></div>
+    <div class="fine"></div>
+  </div>
+  <div class="corner bl corner--bl" data-bleed>
+    <img src="assets/images/aerial-view-of-olive-grove.jpg" alt="Olive grove seen from above">
+    <div class="band"></div>
+    <div class="fine"></div>
+  </div>
 
   <span class="cv-arc" style="--r: 0.45in"></span>
   <span class="cv-arc" style="--r: 0.57in"></span>
@@ -39,18 +42,19 @@
 
   <div class="cv-medallion">
     <div class="cv-ring"></div>
-    <img class="cv-ring-photo" src="assets/images/aerial-view-of-olive-grove.jpg" alt="Olive grove seen from above">
+    <img class="cv-ring-photo" src="assets/images/aerial-view-of-greece.jpg" alt="The Greek coast from above">
     <div class="cv-ring-inner"></div>
     <div class="cv-disc"></div>
     <img class="cv-logo" src="assets/images/blis-farms-logo.svg" alt="Blis Farms logo">
   </div>
 
   <div class="cv-info">
-    <span class="cv-label">Prepared by</span>
+    <span class="fr-label">Prepared by</span>
     <span class="cv-value">{{participants|dots}}</span>
-    <span class="cv-label">School</span>
+    <span class="fr-label">School</span>
     <span class="cv-value">{{school}}<br>{{address}}, {{cityStateZip}}</span>
   </div>
 
-  <div class="cv-frame"></div>
+  <div class="fr-frame"></div>
+  <div class="fr-frame-inner"></div>
 </section>

@@ -188,7 +188,8 @@ const slides = await page.evaluate(() => {
       const opacity = +cs.opacity;
       const sides = ['Top', 'Right', 'Bottom', 'Left'].map((s) => {
         const c = parseColor(cs[`border${s}Color`]), w = px(cs[`border${s}Width`]);
-        return cs[`border${s}Style`] === 'none' || !c || !w ? null : { w, c, dashed: cs[`border${s}Style`] === 'dashed' };
+        const st = cs[`border${s}Style`];
+        return st === 'none' || !c || !w ? null : { w, c, dash: st === 'dashed' ? 'dash' : st === 'dotted' ? 'sysDot' : 'solid' };
       });
       const uniform = sides.every((b) => b && b.w === sides[0].w && b.c.hex === sides[0].c.hex);
       const rr = cs.borderTopLeftRadius.split(' ')[0];
@@ -202,14 +203,14 @@ const slides = await page.evaluate(() => {
           shape: radius >= minSide / 2 - 0.5 && Math.abs(R.w - R.h) < 1 ? 'ellipse' : radius > 0 ? 'roundRect' : 'rect',
           radius: Math.min(radius, minSide / 2),
           fill: fill ? { hex: fill.hex, alpha: fill.alpha * opacity } : null,
-          line: uniform ? { hex: sides[0].c.hex, width: sides[0].w * 0.75, alpha: sides[0].c.alpha * opacity, dashed: sides[0].dashed } : null,
+          line: uniform ? { hex: sides[0].c.hex, width: sides[0].w * 0.75, alpha: sides[0].c.alpha * opacity, dash: sides[0].dash } : null,
           shadow: shadowOf(cs), name: nameOf(el),
         });
       }
       if (!uniform) {
         // Single-side borders become real lines, drawn along the middle of the border
         const [t, r, b, l] = sides;
-        const line = (x, y, w, h, s) => s && items.push({ type: 'line', x, y, w, h, color: s.c.hex, alpha: s.c.alpha * opacity, width: s.w * 0.75, dashed: s.dashed, name: 'rule' });
+        const line = (x, y, w, h, s) => s && items.push({ type: 'line', x, y, w, h, color: s.c.hex, alpha: s.c.alpha * opacity, width: s.w * 0.75, dash: s.dash, name: 'rule' });
         line(R.x, R.y + (t?.w || 0) / 2, R.w, 0, t);
         line(R.x, R.y + R.h - (b?.w || 0) / 2, R.w, 0, b);
         line(R.x + (l?.w || 0) / 2, R.y, 0, R.h, l);
@@ -385,7 +386,7 @@ for (const s of slides) {
       const bleed = it.shape === 'rect' && it.fill && !it.line && !it.rotate ? 0.4 : 0; // hide hairline seams between neighbours
       const o = { x: IN(it.x - bleed), y: IN(it.y - bleed), w: IN(it.w + bleed * 2), h: IN(it.h + bleed * 2), objectName: it.name };
       o.fill = it.fill ? { color: it.fill.hex, transparency: tp(it.fill.alpha) } : { type: 'none' };
-      o.line = it.line ? { color: it.line.hex, width: it.line.width, transparency: tp(it.line.alpha), dashType: it.line.dashed ? 'dash' : 'solid' } : { type: 'none' };
+      o.line = it.line ? { color: it.line.hex, width: it.line.width, transparency: tp(it.line.alpha), dashType: it.line.dash } : { type: 'none' };
       if (it.shape === 'roundRect') o.rectRadius = IN(it.radius);
       if (it.rotate) o.rotate = it.rotate;
       if (it.shadow) o.shadow = { type: 'outer', color: it.shadow.color, opacity: it.shadow.opacity, blur: it.shadow.blur, offset: it.shadow.offset, angle: it.shadow.angle };
@@ -393,7 +394,7 @@ for (const s of slides) {
     } else if (it.type === 'line') {
       slide.addShape(pres.ShapeType.line, {
         x: IN(it.x), y: IN(it.y), w: IN(it.w), h: IN(it.h), objectName: it.name,
-        line: { color: it.color, width: it.width, transparency: tp(it.alpha), dashType: it.dashed ? 'dash' : 'solid' },
+        line: { color: it.color, width: it.width, transparency: tp(it.alpha), dashType: it.dash },
       });
     } else if (it.type === 'image' || it.type === 'raster') {
       const o = { path: it.file, x: IN(it.x), y: IN(it.y), w: IN(it.w), h: IN(it.h), objectName: it.name, altText: it.name };

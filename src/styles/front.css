@@ -1,0 +1,130 @@
+/* Front matter: the title page and the table of contents.
+   Both keep last year's cover language (warm sand, gold frame, 45° photo
+   corners with a gold band and a fine line) refined in the new website's
+   style: the serif, Blis gold, one centre line, cleaner geometry.
+   Everything is simple shapes, real text and cut photos, so it stays
+   editable after the PowerPoint is imported into Canva. */
+
+/* Shared pieces ---------------------------------------------------------- */
+.page.front-page { padding: 0; gap: 0; display: block; background: var(--color-sand); }
+
+/* Gold frame around the page edge, with a fine inner line */
+.fr-frame { position: absolute; inset: 0; border: 0.09in solid var(--color-gold); }
+.fr-frame-inner { position: absolute; inset: 0.17in; border: 1px solid var(--color-gold-light); }
+
+/* A photo corner: a square box (--s wide) whose photo is cut on the 45° diagonal,
+   with a gold band on the cut and a fine line beside it on the sand. */
+.corner { position: absolute; width: var(--s); height: var(--s); }
+.corner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.corner.tr img { clip-path: polygon(0 0, 100% 0, 100% 100%); }
+.corner.bl img { clip-path: polygon(0 0, 100% 100%, 0 100%); }
+.corner .band, .corner .fine {
+  position: absolute; left: 50%; top: 50%;
+  transform: rotate(45deg);
+  background: var(--color-gold);
+}
+.corner .band { width: calc(var(--s) * 1.5); height: 0.1in; margin: -0.05in 0 0 calc(var(--s) * -0.75); }
+.corner .fine { width: calc(var(--s) * 1.3); height: 1.5px; background: var(--color-gold-light); }
+.corner.tr .fine { margin: calc(0.15in - 0.75px) 0 0 calc(var(--s) * -0.65 - 0.15in); }
+.corner.bl .fine { margin: calc(-0.15in - 0.75px) 0 0 calc(var(--s) * -0.65 + 0.15in); }
+
+/* Small gold label in the serif, letterspaced */
+.fr-label {
+  font-family: var(--font-display); font-size: 8.5pt; font-weight: 500;
+  letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-gold-deep);
+  text-align: center; margin-right: -0.24em;
+}
+
+/* Title page ------------------------------------------------------------- */
+.cover > * { position: absolute; }
+.cover .corner--tr { --s: 3in;   left: 5.5in; top: 0; }
+.cover .corner--bl { --s: 3.7in; left: 0;     top: 7.3in; }
+
+/* Curved lines: quarter circles around the bottom-right corner */
+.cv-arc {
+  border: 1px solid rgb(255 255 255 / .9);
+  border-radius: 50%;
+  width: calc(var(--r) * 2); height: calc(var(--r) * 2);
+  left: calc(8.5in - var(--r)); top: calc(11in - var(--r));
+}
+
+.cv-date {
+  left: 0.62in; top: 0.4in;
+  font-size: 12pt; font-weight: 600; letter-spacing: 0.02em; color: var(--color-ink);
+}
+
+/* Event, rule, name, subtitle: one centred column */
+.cv-head {
+  left: 0; width: 8.5in; top: 1.05in;
+  display: flex; flex-direction: column; align-items: center;
+}
+.cv-event {
+  font-size: 11pt; font-weight: 600; line-height: 1.85; text-align: center;
+  letter-spacing: 0.34em; margin-right: -0.34em; text-transform: uppercase; color: var(--color-ink);
+}
+.cv-rule { width: 2.6in; height: 1.5px; background: var(--color-ink); margin: 0.22in 0 0.26in; }
+.cv-name {
+  font-family: var(--font-display); font-size: 62pt; font-weight: 600; line-height: 1;
+  letter-spacing: 0.08em; margin-right: -0.08em; color: var(--color-gold-title); text-align: center;
+}
+.cv-sub {
+  margin-top: 0.2in;
+  font-family: var(--font-display); font-style: italic; font-size: 15pt; line-height: 1.4;
+  color: var(--color-ink-soft); text-align: center;
+}
+
+/* Logo medallion: gold ring, a ring of Greek sea, gold ring, white disc */
+.cv-medallion { left: calc(4.25in - 2.05in); top: 3.95in; width: 4.1in; height: 4.1in; }
+.cv-medallion > * { position: absolute; border-radius: 50%; }
+.cv-ring       { inset: 0; background: var(--color-gold); }
+.cv-ring-photo { inset: 0.06in; width: calc(100% - 0.12in); height: calc(100% - 0.12in); object-fit: cover; object-position: 50% 42%; }
+.cv-ring-inner { inset: 0.25in; background: var(--color-gold); }
+.cv-disc       { inset: 0.3in; background: var(--color-surface); box-shadow: 0 6px 18px rgb(73 54 26 / .22); }
+.cv-logo       { border-radius: 0; height: 2.05in; width: auto; left: 50%; top: 50%; transform: none; margin: -1.06in 0 0 -0.9in; }
+
+/* The facts DECA requires, centred under the medallion */
+.cv-info {
+  left: 0; width: 8.5in; top: 8.42in;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+}
+.cv-value { font-size: 11pt; line-height: 1.5; color: var(--color-ink); text-align: center; }
+.fr-label + .cv-value { margin-bottom: 12px; }
+
+/* Table of contents ------------------------------------------------------ */
+.contents-page .corner--tr { --s: 2.35in; left: 6.15in; top: 0; }
+.toc-body {
+  position: absolute; left: 0.85in; right: 0.85in; top: 0.95in; bottom: 0.7in;
+  display: flex; flex-direction: column;
+}
+.toc-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 0.3in; }
+.toc-head .fr-label { text-align: left; margin-right: 0; }
+.toc-head h1 { font-size: 36pt; }
+.toc-head .rule { width: 30px; height: 1px; background: var(--color-gold); margin-top: 4px; }
+
+.toc { display: flex; flex-direction: column; }
+.toc-sec {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 7px 0 3px;
+  font-family: var(--font-display); font-size: 15pt; font-weight: 500; color: var(--color-ink);
+}
+.toc-num { width: 0.55in; flex: none; color: var(--color-gold-deep); }
+.toc-leader { flex: 1; align-self: flex-end; height: 0; margin: 0 6px 5px; border-bottom: 1.5px dotted var(--color-gold-light); }
+.toc-page { flex: none; min-width: 0.3in; text-align: right; }
+.toc-sub {
+  display: flex; align-items: baseline; gap: 6px;
+  padding: 2px 0 2px 0.55in;
+  font-size: 9.5pt; line-height: 1.4; color: var(--color-ink-soft);
+}
+.toc-sub-label { width: 0.25in; flex: none; font-weight: 600; color: var(--color-gold-deep); }
+.toc-sub-text { flex: 1; }
+.toc-sub-page { flex: none; min-width: 0.3in; text-align: right; font-family: var(--font-display); font-size: 10.5pt; color: var(--color-ink); }
+.toc-desc .toc-sub-text { font-style: italic; }
+.toc-sec + .toc-sub { padding-top: 0; }
+.toc-sub:has(+ .toc-sec), .toc-sub:last-child { padding-bottom: 8px; }
+
+.toc-foot {
+  margin-top: auto; padding-top: 0.2in;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  font-size: 8pt; color: var(--color-muted);
+}
+.toc-foot img { height: 0.42in; width: auto; display: block; }

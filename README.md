@@ -32,11 +32,11 @@ src/styles/base.css       page frame + typography
 src/styles/components.css cards, stats, callouts, tables, charts, cover, TOC
 src/pages/                one file per page, in order:
    00-title.html            title page (not numbered)
-   01-contents.html         table of contents (built automatically, not numbered)
+   01-contents.html         table of contents (rows from `outline` in book.config.json, page numbers automatic)
    p01-…html … p20-…html    body pages 1–20 (numbered automatically)
 src/charts/*.json         chart data: edit numbers here and the chart redraws
 src/assets/images/raw/    drop original photos here (any size); build compresses them
-src/styles/cover.css      title page
+src/styles/front.css      title page and table of contents
 src/icons/*.svg           small icons, used as {{icon key-1}}
 src/js/runtime.js         page numbers, table of contents, chart drawing
 scripts/                  build + export + check tooling

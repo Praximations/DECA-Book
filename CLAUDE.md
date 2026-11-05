@@ -21,7 +21,9 @@ A DECA Business Operations Research written entry (2026–27 topic: customer loy
   warm paper `#FCF9F3`, sand `#EFE6D8` on the cover, and the shop's section tones.
 - The title page keeps LAST YEAR'S cover layout (date top left, spaced-out event, rule, BLIS FARMS, logo
   medallion, 45° photo corners with gold bands, arcs bottom right, gold frame), refined, plus the required
-  school and participant details. See `src/styles/cover.css`.
+  school and participant details. The table of contents pairs with it (same sand, frame and a photo corner).
+  Both live in `src/styles/front.css`; the TOC rows come from `outline` in `book.config.json`, with page
+  numbers read from the body pages (sections by `data-section`, sub-items by their letter in the `<h2>`).
 - Photos: the user has given permission to use Blis photos. Copy them from `/home/user/blis/assets/` into
   `src/assets/images/raw/`. Where no photo fits, use a labelled placeholder.
 
@@ -35,6 +37,7 @@ A DECA Business Operations Research written entry (2026–27 topic: customer loy
 ## Conventions
 - Change colors, fonts and spacing only in `src/styles/tokens.css`. Don't hard-code hex values in pages.
 - Each page is a `<section class="page body">` in its own file. Filenames set the order.
+- Subsection `<h2>`s start with the outline letter (`A. …`) so the table of contents can find their page.
 - Reuse the classes in `components.css` (`card`, `stat`, `callout`, `grid-2/3/4`, `table.data`, `figure.chart`). Add new components there, not inline.
 - Charts: `<figure class="chart" data-chart="name" data-height="2">` with data in `src/charts/name.json`.
   Types: `bar`, `hbar`, `donut`, `line`, `stacked`.

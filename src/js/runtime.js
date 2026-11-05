@@ -6,6 +6,8 @@
   const token = (name) => css.getPropertyValue(name).trim();
   const PT = 96 / 72; // px per pt
 
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
   /* ---------- 1. Page numbers ---------- */
   function numberPages() {
     const bodyPages = [...document.querySelectorAll('.page.body')];
@@ -24,17 +26,31 @@
   }
 
   /* ---------- 2. Table of contents ---------- */
+  // Rows come from `outline` in book.config.json (the official Written Entry outline).
+  // Section page numbers come from <h1 data-section>; sub-item numbers from an <h2>
+  // in that section starting with the same letter ("A. ...").
   function buildToc() {
     const toc = document.querySelector('[data-toc-target]');
     if (!toc) return;
-    const rows = [];
+    const sectionPage = {}, subPage = {};
+    let cur = null;
     document.querySelectorAll('.page.body').forEach((page) => {
-      page.querySelectorAll('h1[data-section], h2').forEach((h) => {
-        if (h.dataset.toc === 'no') return;
-        const level = h.tagName === 'H1' ? 1 : 2;
-        const label = level === 1 ? `${h.dataset.section}. ${h.textContent.trim()}` : h.textContent.trim();
-        rows.push(`<div class="toc-row level-${level}"><span class="toc-label">${label}</span>` +
-                  `<span class="toc-page">${page.dataset.pageNumber}</span></div>`);
+      const h1 = page.querySelector('h1[data-section]');
+      if (h1) { cur = h1.dataset.section; sectionPage[cur] ??= page.dataset.pageNumber; }
+      page.querySelectorAll('h2').forEach((h) => {
+        const m = h.textContent.trim().match(/^([A-Z])\./);
+        if (m && cur) subPage[cur + m[1]] ??= page.dataset.pageNumber;
+      });
+    });
+    const rows = [];
+    (window.BOOK.outline || []).forEach((s) => {
+      rows.push(`<div class="toc-sec"><span class="toc-num">${s.section}.</span><span class="toc-title">${esc(s.title)}</span>` +
+                `<span class="toc-leader"></span><span class="toc-page">${sectionPage[s.section] ?? ''}</span></div>`);
+      if (s.desc) rows.push(`<div class="toc-sub toc-desc"><span class="toc-sub-label"></span><span class="toc-sub-text">${esc(s.desc)}</span></div>`);
+      (s.items || []).forEach((item) => {
+        const m = item.match(/^([A-Z])\.\s*(.*)$/);
+        rows.push(`<div class="toc-sub"><span class="toc-sub-label">${m[1]}.</span><span class="toc-sub-text">${esc(m[2])}</span>` +
+                  `<span class="toc-sub-page">${subPage[s.section + m[1]] ?? ''}</span></div>`);
       });
     });
     toc.innerHTML = rows.join('');
@@ -42,7 +58,6 @@
 
   /* ---------- 3. Charts (pure SVG, styles inlined so they export cleanly) ---------- */
   const palette = () => [1, 2, 3, 4, 5, 6].map((n) => token(`--chart-${n}`));
-  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const fmt = (v, unit) => (unit === '$' ? '$' + v.toLocaleString() : v.toLocaleString() + (unit || ''));
 
   function textEl(x, y, str, o = {}) {

@@ -64,5 +64,62 @@
     }
   ],
   "preparedFor": "Daniel Lembessis<br>Founder &amp; CEO, Blis Farms",
-  "outputName": "Blis-Farms-DECA-Book"
+  "outputName": "Blis-Farms-DECA-Book",
+  "outline": [
+    {
+      "section": "I",
+      "title": "Executive Summary",
+      "desc": "A one-to-three-page description of the project: the business, the research, the findings, the plan and its budget"
+    },
+    {
+      "section": "II",
+      "title": "Introduction",
+      "items": [
+        "A. Description of the business or organization, including its purpose",
+        "B. Description of the primary products or services",
+        "C. Description of the target market (demographics and psychographics)",
+        "D. Overview of the current business strategy relating to customer loyalty and repeat engagement"
+      ]
+    },
+    {
+      "section": "III",
+      "title": "Research Methods Used in the Study",
+      "items": [
+        "A. Description and rationale of the research methodologies selected",
+        "B. Process used to conduct the selected research methods"
+      ]
+    },
+    {
+      "section": "IV",
+      "title": "Findings and Conclusions of the Study",
+      "items": [
+        "A. Findings of the research study",
+        "B. Conclusions based on the findings"
+      ]
+    },
+    {
+      "section": "V",
+      "title": "Proposed Strategic Plan",
+      "items": [
+        "A. Objectives and rationale of the proposed strategic plan",
+        "B. Proposed activities and timelines",
+        "C. Proposed metrics and key performance indicators to measure plan effectiveness"
+      ]
+    },
+    {
+      "section": "VI",
+      "title": "Proposed Budget",
+      "desc": "Costs and rationale of the proposed strategies, financial viability and return on investment"
+    },
+    {
+      "section": "VII",
+      "title": "Bibliography",
+      "desc": "Sources of information used in the written document"
+    },
+    {
+      "section": "VIII",
+      "title": "Appendix",
+      "desc": "Supporting exhibits: survey instrument, interview guide and data tables"
+    }
+  ]
 }
